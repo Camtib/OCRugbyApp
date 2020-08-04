@@ -1,0 +1,82 @@
+<resources>
+    <string name="app_name">OC Rugby</string>
+    <string name="LoginBtn">Login</string>
+    <string name="SignUpBtn">Sign Up</string>
+    <string name="EmailPlainText">Email</string>
+    <string name="FirstNamePlainText">First Name</string>
+    <string name="SurnamePlainText">Surname</string>
+    <string name="PasswordPlainText">Password</string>
+    <string name="PositionPlainText">Position</string>
+    <string name="AgePlainText">Age</string>
+    <string name="AkaPlainText">Also Known As</string>
+    <string name="ConfirmPasswordPlainText">Confirm Password</string>
+    <string name="oc_rugby">OC Rugby</string>
+    <string name="LogOutBtn">Logout</string>
+    <string name="MobileNumber">Mobile Number</string>
+    <string name="forgotten_password">Forgotten Password?</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="home">Home</string>
+    <string name="fixtures">Fixtures</string>
+    <string name="teams">Teams</string>
+
+    <string name="ProfilePic">ProfilePic</string>
+    <string name="EditBtn">Edit</string>
+    <string name="homeBtn">HomeBtn</string>
+
+    <string name="leagues">Leagues</string>
+    <string name="firstTeam">1st XV</string>
+    <string name="secondTeam">2nd XV</string>
+    <string name="bTeam">B XV</string>
+    <string name="womensTeam">Women\'s XV</string>
+    <string name="ocrfc">OCRFC</string>
+    <string name="profileBtn">profileButton</string>
+    <string name="profile">Profile</string>
+    <string name="mens">Men\'s</string>
+    <string name="womens">Women\'s</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date">Date</string>
+    <string name="members">Members</string>
+    <string name="back">Back</string>
+    <string name="settings">Settings</string>
+    <string name="Name">Name</string>
+    <string name="edit_first_name">Edit First Name</string>
+    <string name="edit_surname">Edit Surname</string>
+    <string name="edit_nickname">Edit Nickname</string>
+    <string name="edit_email">Edit Email</string>
+    <string name="edit_mobile_number">Edit Mobile Number</string>
+    <string name="edit_position">Edit Position</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="delete_account">Delete Account</string>
+    <string name="edit_name">Edit Name</string>
+    <string name="preferred_position">Preferred Position</string>
+    <string name="second_choice_position">Second Choice Position</string>
+    <string name="third_choice_position">Third Choice Position</string>
+    <string name="delete_your_account">Are you sure you want to delete your account?</string>
+    <string name="cancel">Cancel</string>
+    <string name="search">Search</string>
+
+
+    <string-array name="positions">
+        <item>N/A</item>
+        <item>Tight Head Prop</item>
+        <item>Hooker</item>
+        <item>Loose Head Prop</item>
+        <item>Lock</item>
+        <item>Openside Flanker</item>
+        <item>Blindside Flanker</item>
+        <item>No 8</item>
+        <item>Scrum Half</item>
+        <item>Fly Half</item>
+        <item>Inside Centre</item>
+        <item>Outside Centre</item>
+        <item>Winger</item>
+        <item>Full Back</item>
+        <item>Bench Warmer</item>
+    </string-array>
+
+
+</resources>
