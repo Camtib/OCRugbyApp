@@ -25,9 +25,9 @@ import java.util.List;
 public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesListAdapter.FixturesVH> {
 
     private Context mContext;
-    List<Fixtures> fixturesList;
+    List<MensFixtureCard> fixturesList;
 
-    public MensFixturesListAdapter(Context mContext, List<Fixtures> fixturesList) {
+    public MensFixturesListAdapter(Context mContext, List<MensFixtureCard> fixturesList) {
         this.mContext = mContext;
         this.fixturesList = fixturesList;
 
@@ -46,7 +46,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
     @Override
     public void onBindViewHolder(@NonNull FixturesVH holder, int position) {
 
-        Fixtures fixtures = fixturesList.get(position);
+        MensFixtureCard fixtures = fixturesList.get(position);
         holder.date.setText(fixtures.getDate());
 
         holder.firstsOpposition.setText(fixtures.getFirstsFixture());
@@ -177,7 +177,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
                 @Override
                 public void onClick(View v) {
 
-                    Fixtures fixtures = fixturesList.get(getAdapterPosition());
+                    MensFixtureCard fixtures = fixturesList.get(getAdapterPosition());
                     fixtures.setExpandable(!fixtures.isExpandable());
                     notifyItemChanged(getAdapterPosition());
 
