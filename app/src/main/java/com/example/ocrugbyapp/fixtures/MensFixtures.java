@@ -41,6 +41,6 @@ public class MensFixtures extends Fragment {
 
 
         return view;
-        
+
     }
 }

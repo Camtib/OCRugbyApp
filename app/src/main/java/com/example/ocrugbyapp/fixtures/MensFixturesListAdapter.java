@@ -11,96 +11,178 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class MensFixturesListAdapter extends ArrayAdapter<MensFixtureCard> {
+public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesListAdapter.FixturesVH> {
 
-    private static final String TAG = "MensFixtureListAdapter";
     private Context mContext;
-    private int mResource;
-    private int lastPosition = -1;
+    List<Fixtures> fixturesList;
 
-    public MensFixturesListAdapter(@NonNull FragmentActivity context, int resource, @NonNull ArrayList<MensFixtureCard> objects) {
-        super(context, resource, objects);
-        mContext = context;
-        mResource = resource;
+    public MensFixturesListAdapter(Context mContext, List<Fixtures> fixturesList) {
+        this.mContext = mContext;
+        this.fixturesList = fixturesList;
+
     }
-
-    //holds variables in a view
-    private static class ViewHolder {
-        TextView date;
-        TextView firstsFixture;
-        TextView secondsFixture;
-        TextView bsFixture;
-        TextView firstsHA;
-        TextView secondsHA;
-        TextView bsHA;
-    }
-
 
 
     @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        //get fixture information
-        String date = getItem(position).getDate();
-        String firstsFixture = getItem(position).getFirstsFixture();
-        String secondsFixture = getItem(position).getSecondsFixture();
-        String bsFixture = getItem(position).getBsFixture();
-        String firstsHA = getItem(position).getFirstsHA();
-        String secondsHA = getItem(position).getSecondsHA();
-        String bsHA = getItem(position).getBsHA();
+    public FixturesVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        //create the fixture object with the information
-        MensFixtureCard fixture = new MensFixtureCard(date, firstsFixture, secondsFixture, bsFixture, firstsHA, secondsHA, bsHA);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_mens_fixtures, parent, false);
+        return new FixturesVH(view);
 
-        //create view result to show animation
-        final View result;
+    }
 
-        //ViewHolder object
-        ViewHolder holder;
+    @Override
+    public void onBindViewHolder(@NonNull FixturesVH holder, int position) {
 
-        if(convertView == null) {
-            LayoutInflater inflater = LayoutInflater.from(mContext);
-            convertView = inflater.inflate(mResource, parent, false);
+        Fixtures fixtures = fixturesList.get(position);
+        holder.date.setText(fixtures.getDate());
 
-            holder = new ViewHolder();
-            holder.date = (TextView) convertView.findViewById(R.id.dateTextView);
-            holder.firstsFixture = (TextView) convertView.findViewById(R.id.firstsFixture);
-            holder.secondsFixture = (TextView) convertView.findViewById(R.id.secondsFixture);
-            holder.bsFixture = (TextView) convertView.findViewById(R.id.bsFixture);
-            holder.firstsHA = (TextView) convertView.findViewById(R.id.firstsHA);
-            holder.secondsHA = (TextView) convertView.findViewById(R.id.secondsHA);
-            holder.bsHA = (TextView) convertView.findViewById(R.id.bsHA);
+        holder.firstsOpposition.setText(fixtures.getFirstsFixture());
+        holder.firstsHA.setText(fixtures.getFirstsHA());
+        holder.firstsLC.setText(fixtures.getFirstsLC());
+        holder.firstsKO.setText(fixtures.getFirstsKO());
+        holder.firstsMeet.setText(fixtures.getFirstsMeet());
+        holder.firstsAddress.setText(fixtures.getFirstsAddress());
+        holder.firstsPostcode.setText(fixtures.getFirstsPostcode());
 
-            result = convertView;
-            convertView.setTag(holder);
+        holder.secondsOpposition.setText(fixtures.getSecondsFixture());
+        holder.secondsHA.setText(fixtures.getSecondsHA());
+        holder.secondsLC.setText(fixtures.getSecondsLC());
+        holder.secondsKO.setText(fixtures.getSecondsKO());
+        holder.secondsMeet.setText(fixtures.getSecondsMeet());
+        holder.secondsAddress.setText(fixtures.getSecondsAddress());
+        holder.secondsPostcode.setText(fixtures.getSecondsPostcode());
+
+        holder.bsOpposition.setText(fixtures.getBsFixture());
+        holder.bsHA.setText(fixtures.getBsHA());
+        holder.bsLC.setText(fixtures.getBsLC());
+        holder.bsKO.setText(fixtures.getBsKO());
+        holder.bsMeet.setText(fixtures.getBsMeet());
+        holder.bsAddress.setText(fixtures.getBsAddress());
+        holder.bsPostcode.setText(fixtures.getBsPostcode());
+
+        boolean isExpandable = fixturesList.get(position).isExpandable();
+        holder.expandableInfo.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return fixturesList.size();
+    }
+
+    public class FixturesVH extends RecyclerView.ViewHolder {
+
+        TextView date, fixtureNumber;
+        TextView firstsOpposition, firstsLC, firstsHA, firstsKO, firstsMeet, firstsAddress, firstsPostcode;
+        TextView secondsOpposition, secondsLC, secondsHA, secondsKO, secondsMeet, secondsAddress, secondsPostcode;
+        TextView bsOpposition, bsLC, bsHA, bsKO, bsMeet, bsAddress, bsPostcode;
+        ConstraintLayout parent;
+        ConstraintLayout expandableInfo, firstsInfoList, secondsInfoList, bsInfoList;
+        TabLayout tabLayout;
+
+        public FixturesVH(@NonNull final View itemView) {
+            super(itemView);
+
+            date = itemView.findViewById(R.id.dateTV);
+
+            firstsOpposition = itemView.findViewById(R.id.firstsOpposition);
+            firstsLC = itemView.findViewById(R.id.firstsLC);
+            firstsHA = itemView.findViewById(R.id.firstsHA);
+            firstsKO = itemView.findViewById(R.id.firstsKO);
+            firstsMeet = itemView.findViewById(R.id.firstsMeet);
+            firstsAddress = itemView.findViewById(R.id.firstsAddress);
+            firstsPostcode = itemView.findViewById(R.id.firstsPostcode);
+
+            secondsOpposition = itemView.findViewById(R.id.secondsOpposition);
+            secondsLC = itemView.findViewById(R.id.secondsLC);
+            secondsHA = itemView.findViewById(R.id.secondsHA);
+            secondsKO = itemView.findViewById(R.id.secondsKO);
+            secondsMeet = itemView.findViewById(R.id.secondsMeet);
+            secondsAddress = itemView.findViewById(R.id.secondsAddress);
+            secondsPostcode = itemView.findViewById(R.id.secondsPostcode);
+
+            bsOpposition = itemView.findViewById(R.id.bsOpposition);
+            bsLC = itemView.findViewById(R.id.bsLC);
+            bsHA = itemView.findViewById(R.id.bsHA);
+            bsKO = itemView.findViewById(R.id.bsKO);
+            bsMeet = itemView.findViewById(R.id.bsMeet);
+            bsAddress = itemView.findViewById(R.id.bsAddress);
+            bsPostcode = itemView.findViewById(R.id.bsPostcode);
+
+            firstsInfoList = itemView.findViewById(R.id.firstsInfoConstraintLayout);
+            secondsInfoList = itemView.findViewById(R.id.secondsInfoConstraintLayout);
+            bsInfoList = itemView.findViewById(R.id.bsInfoConstraintLayout);
+
+            tabLayout = itemView.findViewById(R.id.tabLayout);
+
+            tabLayout.getTabAt(0).setText("1st XV");
+            tabLayout.getTabAt(1).setText("2nd XV");
+            tabLayout.getTabAt(2).setText("B XV");
+
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    if (tabLayout.getSelectedTabPosition() == 0) {
+                        firstsInfoList.setVisibility(View.VISIBLE);
+                        secondsInfoList.setVisibility(View.GONE);
+                        bsInfoList.setVisibility(View.GONE);
+
+                    } else if (tabLayout.getSelectedTabPosition() == 1) {
+                        firstsInfoList.setVisibility(View.GONE);
+                        secondsInfoList.setVisibility(View.VISIBLE);
+                        bsInfoList.setVisibility(View.GONE);
+
+
+                    } else if (tabLayout.getSelectedTabPosition() == 2) {
+                        firstsInfoList.setVisibility(View.GONE);
+                        secondsInfoList.setVisibility(View.GONE);
+                        bsInfoList.setVisibility(View.VISIBLE);
+
+                    }
+                }
+
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+
+                }
+            });
+
+
+            fixtureNumber = itemView.findViewById(R.id.fixtureNumber);
+            String fixture = "Fixture " + (getLayoutPosition() + 1);
+            fixtureNumber.setText(fixture);
+
+            parent = itemView.findViewById(R.id.parent);
+            expandableInfo = itemView.findViewById(R.id.expandedInfoLayout);
+
+            parent.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Fixtures fixtures = fixturesList.get(getAdapterPosition());
+                    fixtures.setExpandable(!fixtures.isExpandable());
+                    notifyItemChanged(getAdapterPosition());
+
+                }
+            });
         }
-        else{
-            holder = (ViewHolder) convertView.getTag();
-            result = convertView;
-        }
-
-        Animation animation = AnimationUtils.loadAnimation(mContext,
-                (position > lastPosition) ? R.anim.loading_down_anim : R.anim.loading_up_anim);
-        result.startAnimation(animation);
-        lastPosition = position;
-
-
-        holder.date.setText(date);
-        holder.firstsFixture.setText(firstsFixture);
-        holder.secondsFixture.setText(secondsFixture);
-        holder.bsFixture.setText(bsFixture);
-        holder.firstsHA.setText(firstsHA);
-        holder.secondsHA.setText(secondsHA);
-        holder.bsHA.setText(bsHA);
-
-        return convertView;
-
     }
 }
