@@ -93,8 +93,18 @@ public class MensFixtures extends Fragment {
                                 firstsLC = document.get("firstsLC").toString();
                             }
 
-                            firstsKO = "Kick Off: " + document.get("firstsKO").toString();
-                            firstsMeet = "Meet Time: " + document.get("firstsMeet").toString();
+                            if (document.get("firstsKO").toString().equals("")) {
+                                firstsKO = document.get("firstsKO").toString();
+                            } else {
+                                firstsKO = "Kick Off: " + document.get("firstsKO").toString();
+                            }
+
+                            if (document.get("firstsMeet").toString().equals("")) {
+                                firstsMeet = document.get("firstsMeet").toString();
+                            } else {
+                                firstsMeet = "Meet Time: " + document.get("firstsMeet").toString();
+                            }
+                            
                             firstsAddress = document.get("firstsAddress").toString();
                             firstsPostcode = document.get("firstsPostcode").toString();
 
@@ -122,8 +132,18 @@ public class MensFixtures extends Fragment {
                                 secondsLC = document.get("secondsLC").toString();
                             }
 
-                            secondsKO = "Kick Off: " + document.get("secondsKO").toString();
-                            secondsMeet = "Meet Time: " + document.get("secondsMeet").toString();
+                            if (document.get("secondsKO").toString().equals("")) {
+                                secondsKO = document.get("secondsKO").toString();
+                            } else {
+                                secondsKO = "Kick Off: " + document.get("secondsKO").toString();
+                            }
+
+                            if (document.get("secondsMeet").toString().equals("")) {
+                                secondsMeet = document.get("secondsMeet").toString();
+                            } else {
+                                secondsMeet = "Meet Time: " + document.get("secondsMeet").toString();
+                            }
+
                             secondsAddress = document.get("secondsAddress").toString();
                             secondsPostcode = document.get("secondsPostcode").toString();
 
@@ -151,8 +171,18 @@ public class MensFixtures extends Fragment {
                                 bsLC = document.get("bsLC").toString();
                             }
 
-                            bsKO = "Kick Off: " + document.get("bsKO").toString();
-                            bsMeet = "Meet Time: " + document.get("bsMeet").toString();
+                            if (document.get("bsKO").toString().equals("")) {
+                                bsKO = document.get("bsKO").toString();
+                            } else {
+                                bsKO = "Kick Off: " + document.get("bsKO").toString();
+                            }
+
+                            if (document.get("bsMeet").toString().equals("")) {
+                                bsMeet = document.get("bsMeet").toString();
+                            } else {
+                                bsMeet = "Meet Time: " + document.get("bsMeet").toString();
+                            }
+
                             bsAddress = document.get("bsAddress").toString();
                             bsPostcode = document.get("bsPostcode").toString();
 
