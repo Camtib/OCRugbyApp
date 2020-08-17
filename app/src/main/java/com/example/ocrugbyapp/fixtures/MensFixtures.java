@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
 import com.loopj.android.http.AsyncHttpClient;
@@ -28,7 +29,7 @@ import jxl.read.biff.BiffException;
 public class MensFixtures extends Fragment {
     private static final String TAG = "MenFixtures";
 
-    private ListView mListView;
+    private RecyclerView mRecyclerView;
     AsyncHttpClient client;
     Workbook workbook;
 
@@ -36,7 +37,7 @@ public class MensFixtures extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_mens_fixtures, container, false);
-        mListView = (ListView) view.findViewById(R.id.mensListView);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewMensFixtures);
 
         String url = "http://www.ocrfc.com/images/forms/OC_Fix_18-19.xls";
 
