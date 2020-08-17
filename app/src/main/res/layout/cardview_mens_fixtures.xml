@@ -152,8 +152,8 @@
                 android:id="@+id/firstsHA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                android:layout_marginLeft="68dp"
+                android:layout_marginStart="54dp"
+                android:layout_marginLeft="54dp"
                 android:layout_marginTop="12dp"
                 android:text="Home/Away"
                 android:textSize="16sp"
@@ -180,6 +180,7 @@
                 android:text="Address"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
                 app:layout_constraintStart_toEndOf="@+id/firstsLC"
                 app:layout_constraintTop_toTopOf="@+id/firstsHA" />
 
@@ -246,8 +247,8 @@
                 android:id="@+id/secondsHA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                android:layout_marginLeft="68dp"
+                android:layout_marginStart="54dp"
+                android:layout_marginLeft="54dp"
                 android:layout_marginTop="12dp"
                 android:text="Home/Away"
                 android:textSize="16sp"
@@ -274,6 +275,7 @@
                 android:text="Address"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
                 app:layout_constraintStart_toEndOf="@+id/secondsLC"
                 app:layout_constraintTop_toTopOf="@+id/secondsHA" />
 
@@ -340,8 +342,8 @@
                 android:id="@+id/bsHA"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="68dp"
-                android:layout_marginLeft="68dp"
+                android:layout_marginStart="54dp"
+                android:layout_marginLeft="54dp"
                 android:layout_marginTop="12dp"
                 android:text="Home/Away"
                 android:textSize="16sp"
@@ -368,6 +370,7 @@
                 android:text="Address"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.66"
                 app:layout_constraintStart_toEndOf="@+id/bsLC"
                 app:layout_constraintTop_toTopOf="@+id/bsHA" />
 
