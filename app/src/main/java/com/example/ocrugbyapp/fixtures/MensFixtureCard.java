@@ -2,13 +2,14 @@ package com.example.ocrugbyapp.fixtures;
 
 public class MensFixtureCard {
 
-    private String date;
+    private String date, fixtureNum;
     private String firstsFixture, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode;
     private String secondsFixture, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode;
     private String bsFixture, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode;
     private boolean isExpandable;
 
-    public MensFixtureCard(String date, String firstsFixture, String firstsHA, String firstsLC, String firstsKO, String firstsMeet, String firstsAddress, String firstsPostcode, String secondsFixture, String secondsHA, String secondsLC, String secondsKO, String secondsMeet, String secondsAddress, String secondsPostcode, String bsFixture, String bsHA, String bsLC, String bsKO, String bsMeet, String bsAddress, String bsPostcode) {
+    public MensFixtureCard(String fixtureNum, String date, String firstsFixture, String firstsHA, String firstsLC, String firstsKO, String firstsMeet, String firstsAddress, String firstsPostcode, String secondsFixture, String secondsHA, String secondsLC, String secondsKO, String secondsMeet, String secondsAddress, String secondsPostcode, String bsFixture, String bsHA, String bsLC, String bsKO, String bsMeet, String bsAddress, String bsPostcode) {
+        this.fixtureNum = fixtureNum;
         this.date = date;
         this.firstsFixture = firstsFixture;
         this.firstsHA = firstsHA;
@@ -32,6 +33,14 @@ public class MensFixtureCard {
         this.bsAddress = bsAddress;
         this.bsPostcode = bsPostcode;
         this.isExpandable = false;
+    }
+
+    public String getFixtureNum() {
+        return fixtureNum;
+    }
+
+    public void setFixtureNum(String fixtureNum) {
+        this.fixtureNum = fixtureNum;
     }
 
     public String getDate() {

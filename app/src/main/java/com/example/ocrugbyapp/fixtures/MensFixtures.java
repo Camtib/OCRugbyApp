@@ -64,10 +64,11 @@ public class MensFixtures extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if (document != null) {
 
-                            final String date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode;
+                            final String fixtureNum, date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode;
                             final String secondsOpponent, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode;
                             final String bsOpponent, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode;
 
+                            fixtureNum = "Fixture " + document.getId();
                             date = document.get("date").toString();
 
                             if (!document.get("firstsOpponent").toString().equals("")) {
@@ -155,7 +156,7 @@ public class MensFixtures extends Fragment {
                             bsAddress = document.get("bsAddress").toString();
                             bsPostcode = document.get("bsPostcode").toString();
 
-                            fixture.add(new MensFixtureCard(date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode,
+                            fixture.add(new MensFixtureCard(fixtureNum, date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode,
                                     secondsOpponent, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode,
                                     bsOpponent, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode));
 

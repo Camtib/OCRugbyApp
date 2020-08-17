@@ -47,6 +47,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
     public void onBindViewHolder(@NonNull FixturesVH holder, int position) {
 
         MensFixtureCard fixtures = fixturesList.get(position);
+        holder.fixtureNumber.setText(fixtures.getFixtureNum());
         holder.date.setText(fixtures.getDate());
 
         holder.firstsOpposition.setText(fixtures.getFirstsFixture());
@@ -96,6 +97,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
         public FixturesVH(@NonNull final View itemView) {
             super(itemView);
 
+            fixtureNumber = itemView.findViewById(R.id.fixtureNumber);
             date = itemView.findViewById(R.id.dateTV);
 
             firstsOpposition = itemView.findViewById(R.id.firstsOpposition);
@@ -164,11 +166,6 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
 
                 }
             });
-
-
-            fixtureNumber = itemView.findViewById(R.id.fixtureNumber);
-            String fixture = "Fixture " + (getLayoutPosition() + 1);
-            fixtureNumber.setText(fixture);
 
             parent = itemView.findViewById(R.id.parent);
             expandableInfo = itemView.findViewById(R.id.expandedInfoLayout);
