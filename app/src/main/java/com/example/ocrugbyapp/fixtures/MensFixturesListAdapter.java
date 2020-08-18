@@ -41,7 +41,6 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
     public void onBindViewHolder(@NonNull FixturesVH holder, int position) {
 
         MensFixtureCard fixtures = fixturesList.get(position);
-        holder.fixtureNumber.setText(fixtures.getFixtureNum());
         holder.date.setText(fixtures.getDate());
 
         holder.firstsOpposition.setText(fixtures.getFirstsFixture());
@@ -68,8 +67,70 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
         holder.bsAddress.setText(fixtures.getBsAddress());
         holder.bsPostcode.setText(fixtures.getBsPostcode());
 
+        // no fixtures
+        if (holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                holder.bsOpposition.getText().toString().equals("No Fixture")) {
+
+            holder.fixtureNumber.setText("");
+
+            // only 1st XV fixture
+        } else if (!holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                holder.bsOpposition.getText().toString().equals("No Fixture")) {
+
+            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.firstTeam));
+
+            // only 2nd XV fixture
+        } else if (holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                !holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                holder.bsOpposition.getText().toString().equals("No Fixture")) {
+
+            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.secondTeam));
+
+            // only B XV fixture
+        } else if (holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                !holder.bsOpposition.getText().toString().equals("No Fixture")) {
+
+            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.bTeam));
+
+            // 1st XV and 2nd XV fixtures
+        } else if (!holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                !holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                holder.bsOpposition.getText().toString().equals("No Fixture")) {
+
+            String haveFixture = mContext.getResources().getString(R.string.firstTeam) + "/" + mContext.getResources().getString(R.string.secondTeam);
+            holder.fixtureNumber.setText(haveFixture);
+
+            // 1st XV and B XV fixtures
+        } else if (!holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                !holder.bsOpposition.getText().toString().equals("No Fixture")) {
+
+            String haveFixture = mContext.getResources().getString(R.string.firstTeam) + "/" + mContext.getResources().getString(R.string.bTeam);
+            holder.fixtureNumber.setText(haveFixture);
+
+            // 2nd XV and B XV fixtures
+        } else if (holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                !holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                !holder.bsOpposition.getText().toString().equals("No Fixture")) {
+
+            String haveFixture = mContext.getResources().getString(R.string.secondTeam) + "/" + mContext.getResources().getString(R.string.bTeam);
+            holder.fixtureNumber.setText(haveFixture);
+
+            // all 3 teams have fixtures
+        } else {
+
+            String haveFixture = mContext.getResources().getString(R.string.firstTeam) + "/" + mContext.getResources().getString(R.string.secondTeam) + "/" + mContext.getResources().getString(R.string.bTeam);
+            holder.fixtureNumber.setText(haveFixture);
+
+        }
+
+
+
         if (position == 0) {
-            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.lighterBlueForFixtureList));
+            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.lighterGoldForFixtureList));
             holder.expandableInfo.setVisibility(View.VISIBLE);
             holder.itemView.findViewById(R.id.toolBar).setVisibility(View.INVISIBLE);
             holder.itemView.findViewById(R.id.infoTV).setVisibility(View.INVISIBLE);

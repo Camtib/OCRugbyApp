@@ -18,13 +18,12 @@
         android:id="@+id/fixtureNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginLeft="40dp"
         android:layout_marginTop="2dp"
         android:text="Fixture 1"
         android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/dateTV"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,6 +31,8 @@
         android:id="@+id/dateTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="55dp"
+        android:layout_marginRight="55dp"
         android:text="O1/04/2020"
         android:textColor="@color/black"
         android:textColorHint="#000000"
@@ -39,10 +40,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/fixtureNumber"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
-        app:layout_constraintStart_toEndOf="@+id/fixtureNumber"
-        app:layout_constraintTop_toTopOf="@+id/fixtureNumber"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/fixtureNumber" />
 
     <Switch
         android:id="@+id/availabilitySwitch"
