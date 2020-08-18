@@ -6,5 +6,6 @@
     <color name="black">#000</color>
     <color name="SignUpBtn">#2336A3</color>
     <color name="Gold">#FFBB33</color>
-
+    <color name="lighterBlueForFixtureList">#d6e7ff</color>
+    <color name="lighterGoldForFixtureList">#ffdc9d</color>
 </resources>

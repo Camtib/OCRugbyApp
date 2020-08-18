@@ -68,8 +68,17 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
         holder.bsAddress.setText(fixtures.getBsAddress());
         holder.bsPostcode.setText(fixtures.getBsPostcode());
 
-        boolean isExpandable = fixturesList.get(position).isExpandable();
-        holder.expandableInfo.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+        if (position == 0) {
+            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.lighterBlueForFixtureList));
+            holder.expandableInfo.setVisibility(View.VISIBLE);
+            holder.itemView.findViewById(R.id.toolBar).setVisibility(View.INVISIBLE);
+            holder.itemView.findViewById(R.id.infoTV).setVisibility(View.GONE);
+
+
+        } else {
+            boolean isExpandable = fixturesList.get(position).isExpandable();
+            holder.expandableInfo.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
+        }
 
     }
 
