@@ -135,7 +135,6 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
             holder.itemView.findViewById(R.id.toolBar).setVisibility(View.INVISIBLE);
             holder.itemView.findViewById(R.id.infoTV).setVisibility(View.INVISIBLE);
 
-
         } else {
             boolean isExpandable = fixturesList.get(position).isExpandable();
             holder.expandableInfo.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
