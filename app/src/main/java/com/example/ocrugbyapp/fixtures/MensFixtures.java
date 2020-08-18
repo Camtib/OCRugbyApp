@@ -1,13 +1,9 @@
 package com.example.ocrugbyapp.fixtures;
 
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,19 +18,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.FileAsyncHttpResponseHandler;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.WorkbookSettings;
-import jxl.read.biff.BiffException;
 
 
 public class MensFixtures extends Fragment {
@@ -199,12 +187,7 @@ public class MensFixtures extends Fragment {
                                 @Override
                                 protected Void doInBackground(Void... voids) {
 
-                                    MensFixtureCard fixture = new MensFixtureCard(date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode,
-                                            secondsOpponent, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode,
-                                            bsOpponent, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode);
-
-                                    fixture.setExpandable(false);
-
+                                    MensFixtureCard fixture = new MensFixtureCard();
 
                                     fixture.setDate(date);
                                     fixture.setFirstsFixture(firstsOpponent);
