@@ -4,182 +4,259 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.FileAsyncHttpResponseHandler;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.ArrayList;
+import java.util.List;
 
-import cz.msebera.android.httpclient.Header;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.WorkbookSettings;
-import jxl.read.biff.BiffException;
 
 
 public class MensFixtures extends Fragment {
     private static final String TAG = "MenFixtures";
 
-    private ListView mListView;
-    AsyncHttpClient client;
-    Workbook workbook;
+    private RecyclerView mRecyclerView;
+    FirebaseAuth mAuth;
+    FirebaseFirestore mStore;
+    MensFixturesListAdapter mensFixturesListAdapter;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mens_fixtures, container, false);
-        mListView = (ListView) view.findViewById(R.id.mensListView);
+        final View view = inflater.inflate(R.layout.fragment_mens_fixtures, container, false);
 
-        String url = "http://www.ocrfc.com/images/forms/OC_Fix_18-19.xls";
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewMensFixtures);
 
-        client = new AsyncHttpClient();
-        client.get(url, new FileAsyncHttpResponseHandler(getActivity()) {
+        mAuth = FirebaseAuth.getInstance();
+        mStore = FirebaseFirestore.getInstance();
+
+        mStore.collection("ocrfcFixtures").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, File file) {
-                Toast.makeText(getActivity(), "Download Failed", Toast.LENGTH_SHORT).show();
-            }
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, File file) {
-                Toast.makeText(getActivity(), "Downloaded Successfully", Toast.LENGTH_SHORT).show();
-                WorkbookSettings ws = new WorkbookSettings();
-                ws.setGCDisabled(true);
-                String firstsFixture;
-                String secondsFixture;
-                String bsFixture;
+                if (task.isSuccessful()) {
+                    List<MensFixtureCard> fixture = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document != null) {
 
-                final ArrayList<MensFixtureCard> mensFixtures = new ArrayList<>();
+                            final String fixtureNum, date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode;
+                            final String secondsOpponent, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode;
+                            final String bsOpponent, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode;
 
-                if (file != null) {
-                    try {
-                        workbook = Workbook.getWorkbook(file);
-                        Sheet sheet = workbook.getSheet(1);
-                        for (int i = 3 ; i < sheet.getRows() ; i++) {
+                            fixtureNum = "Fixture " + document.getId();
+                            date = document.get("date").toString();
 
-                            String date = sheet.getCell(1, i).getContents();
-                            if (sheet.getCell(4, i).getContents() != "") {
-                                firstsFixture = "1st XV vs " + sheet.getCell(4, i).getContents();
-                            }
-                            else {
-                                firstsFixture = "No Fixture";
+                            if (!document.get("firstsOpponent").toString().equals("")) {
+                                firstsOpponent = "1st XV vs " + document.get("firstsOpponent").toString();
+                            } else {
+                                firstsOpponent = "No Fixture";
                             }
 
-                            if (sheet.getCell(8, i).getContents() != "") {
-                                secondsFixture = "2nd XV vs " + sheet.getCell(4, i).getContents();
-                            }
-                            else {
-                                secondsFixture = "No Fixture";
-                            }
-
-                            if (sheet.getCell(12, i).getContents() != "") {
-                                bsFixture = "b XV vs " + sheet.getCell(4, i).getContents();
-                            }
-                            else {
-                                bsFixture = "No Fixture";
+                            if (document.get("firstsHA").toString().equals("H")) {
+                                firstsHA = "Home";
+                            } else if (document.get("firstsHA").toString().equals("A")) {
+                                firstsHA = "Away";
+                            } else {
+                                firstsHA = document.get("firstsHA").toString();
                             }
 
-                            String firstsHA = sheet.getCell(5, i).getContents();
-                            String secondsHA = sheet.getCell(9, i).getContents();
-                            String bsHA = sheet.getCell(13, i).getContents();
+                            if (document.get("firstsLC").toString().equals("L")) {
+                                firstsLC = "League Match";
+                            } else if (document.get("firstsLC").toString().equals("C")) {
+                                firstsLC = "Cup Match";
+                            } else {
+                                firstsLC = document.get("firstsLC").toString();
+                            }
 
-                            mensFixtures.add(new MensFixtureCard(date, firstsFixture, secondsFixture, bsFixture, firstsHA, secondsHA, bsHA));
+                            if (document.get("firstsKO").toString().equals("")) {
+                                firstsKO = document.get("firstsKO").toString();
+                            } else {
+                                firstsKO = "Kick Off: " + document.get("firstsKO").toString();
+                            }
+
+                            if (document.get("firstsMeet").toString().equals("")) {
+                                firstsMeet = document.get("firstsMeet").toString();
+                            } else {
+                                firstsMeet = "Meet Time: " + document.get("firstsMeet").toString();
+                            }
+                            
+                            firstsAddress = document.get("firstsAddress").toString();
+                            firstsPostcode = document.get("firstsPostcode").toString();
+
+
+
+                            if (!document.get("secondsOpponent").toString().equals("")) {
+                                secondsOpponent = "2nd XV vs " + document.get("secondsOpponent").toString();
+                            } else {
+                                secondsOpponent = "No Fixture";
+                            }
+
+                            if (document.get("secondsHA").toString().equals("H")) {
+                                secondsHA = "Home";
+                            } else if (document.get("secondsHA").toString().equals("A")) {
+                                secondsHA = "Away";
+                            } else {
+                                secondsHA = document.get("secondsHA").toString();
+                            }
+
+                            if (document.get("secondsLC").toString().equals("L")) {
+                                secondsLC = "League Match";
+                            } else if (document.get("secondsLC").toString().equals("C")) {
+                                secondsLC = "Cup Match";
+                            } else {
+                                secondsLC = document.get("secondsLC").toString();
+                            }
+
+                            if (document.get("secondsKO").toString().equals("")) {
+                                secondsKO = document.get("secondsKO").toString();
+                            } else {
+                                secondsKO = "Kick Off: " + document.get("secondsKO").toString();
+                            }
+
+                            if (document.get("secondsMeet").toString().equals("")) {
+                                secondsMeet = document.get("secondsMeet").toString();
+                            } else {
+                                secondsMeet = "Meet Time: " + document.get("secondsMeet").toString();
+                            }
+
+                            secondsAddress = document.get("secondsAddress").toString();
+                            secondsPostcode = document.get("secondsPostcode").toString();
+
+
+
+                            if (!document.get("bsOpponent").toString().equals("")) {
+                                bsOpponent = "B XV vs " + document.get("bsOpponent").toString();
+                            } else {
+                                bsOpponent = "No Fixture";
+                            }
+
+                            if (document.get("bsHA").toString().equals("H")) {
+                                bsHA = "Home";
+                            } else if (document.get("bsHA").toString().equals("A")) {
+                                bsHA = "Away";
+                            } else {
+                                bsHA = document.get("bsHA").toString();
+                            }
+
+                            if (document.get("bsLC").toString().equals("L")) {
+                                bsLC = "League Match";
+                            } else if (document.get("bsLC").toString().equals("C")) {
+                                bsLC = "Cup Match";
+                            } else {
+                                bsLC = document.get("bsLC").toString();
+                            }
+
+                            if (document.get("bsKO").toString().equals("")) {
+                                bsKO = document.get("bsKO").toString();
+                            } else {
+                                bsKO = "Kick Off: " + document.get("bsKO").toString();
+                            }
+
+                            if (document.get("bsMeet").toString().equals("")) {
+                                bsMeet = document.get("bsMeet").toString();
+                            } else {
+                                bsMeet = "Meet Time: " + document.get("bsMeet").toString();
+                            }
+
+                            bsAddress = document.get("bsAddress").toString();
+                            bsPostcode = document.get("bsPostcode").toString();
+
+                            fixture.add(new MensFixtureCard(fixtureNum, date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode,
+                                    secondsOpponent, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode,
+                                    bsOpponent, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode));
+
+
+
+                            /*
+
+                            class SaveFixture extends AsyncTask<Void, Void, Void> {
+
+                                @Override
+                                protected Void doInBackground(Void... voids) {
+
+                                    MensFixtureCard fixture = new MensFixtureCard();
+
+                                    fixture.setDate(date);
+                                    fixture.setFirstsFixture(firstsOpponent);
+                                    fixture.setFirstsLC(firstsLC);
+                                    fixture.setFirstsHA(firstsHA);
+                                    fixture.setFirstsKO(firstsKO);
+                                    fixture.setFirstsMeet(firstsMeet);
+                                    fixture.setFirstsAddress(firstsAddress);
+                                    fixture.setFirstsPostcode(firstsPostcode);
+
+                                    fixture.setSecondsFixture(secondsOpponent);
+                                    fixture.setSecondsLC(secondsLC);
+                                    fixture.setSecondsHA(secondsHA);
+                                    fixture.setSecondsKO(secondsKO);
+                                    fixture.setSecondsMeet(secondsMeet);
+                                    fixture.setSecondsAddress(secondsAddress);
+                                    fixture.setSecondsPostcode(secondsPostcode);
+
+                                    fixture.setBsFixture(bsOpponent);
+                                    fixture.setBsLC(bsLC);
+                                    fixture.setBsHA(bsHA);
+                                    fixture.setBsKO(bsKO);
+                                    fixture.setBsMeet(bsMeet);
+                                    fixture.setBsAddress(bsAddress);
+                                    fixture.setBsPostcode(bsPostcode);
+
+
+                                    fixture.setExpandable(false);
+
+                                    FixtureDatabaseClient.getInstance(getApplicationContext()).getAppDatabase()
+                                            .fixtureDao()
+                                            .insertFixtures(fixture);
+
+
+
+
+                                    return null;
+                                }
+
+                                @Override
+                                protected void onPostExecute(Void aVoid) {
+                                    super.onPostExecute(aVoid);
+                                    finish();
+
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+
+                                }
+                            }
+
+                            SaveFixture sf = new SaveFixture();
+                            sf.execute();
+
+                             */
+
+
                         }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (BiffException e) {
-                        e.printStackTrace();
                     }
+
+                    mensFixturesListAdapter = new MensFixturesListAdapter(view.getContext(), fixture);
+                    mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                    mRecyclerView.setAdapter(mensFixturesListAdapter);
                 }
 
-                MensFixturesListAdapter adapter = new MensFixturesListAdapter(getActivity(), R.layout.cardview_mens_fixtures, mensFixtures);
-                mListView.setAdapter(adapter);
             }
         });
 
 
-
-
-
-
-
-
-/*
-        Document doc = null;
-        Document doc2 = null;
-        Document doc3 = null;
-        try {
-            doc = Jsoup.connect("http://www.ocrfc.com/index.php/oc-fixtures.html").get();
-            doc2 = Jsoup.connect("http://www.ocrfc.com/index.php/2nd-xv-fixtures.html").get();
-            doc3 = Jsoup.connect("http://www.ocrfc.com/index.php/b-xv-fixtures.html").get();
-            //Find table element
-            Elements firstsFixtureTables = doc.getElementsByTag("table");
-            Elements secondsFixtureTables = doc2.getElementsByTag("table");
-            Elements bsFixtureTables = doc3.getElementsByTag("table");
-
-            Elements rows = firstsFixtureTables.select("tr");
-            Elements rows2 = secondsFixtureTables.select("tr");
-            Elements rows3 = bsFixtureTables.select("tr");
-
-            for (Element row : rows) {
-                Elements cells = row.select("td");
-                for (Element cell : cells) {
-                    String date = cell.select("td[Width : 63px]").text();
-                    String firstsFixture = "1st XV vs " + cell.select("td[Width : 213px]").text();
-                    String firstsKOTime = cell.select("td[Width : 80px]").text();
-                    String firstsHA = cell.select("td[Width : 57px]").text();
-                }
-            }
-            //need different way to select cells
-            for (Element row2 : rows2) {
-                Elements cells = row.select("td");
-                for (Element cell : cells) {
-                    String date2 = cell.select("td[Width : 63px]").text();
-                    String secondsFixture = "2nd XV vs " + cell.select("td[Width : 213px]").text();
-                    String secondsKOTime = cell.select("td[Width : 80px]").text();
-                    String secondsHA = cell.select("td[Width : 57px]").text();
-                }
-            }
-            //need different way to select cells
-            for (Element row3 : rows3) {
-                Elements cells = row.select("td");
-                for (Element cell : cells) {
-                    String date3 = cell.select("td[Width : 63px]").text();
-                    String bsFixture = "1st XV vs " + cell.select("td[Width : 213px]").text();
-                    String bsKOTime = cell.select("td[Width : 80px]").text();
-                    String bsHA = cell.select("td[Width : 57px]").text();
-                }
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //or might be easier to get the admin people to input fixtures manually? as tables and elements not got ids.
-
- */
-
-
-        /*
-         * find row elements
-         * loop through rows
-         * find relevant info using if else statements
-         * add relevant info from row to new MensFixtureCard
-         * continue loop through rows
-         * add info from three docs into different fixture cards
-         */
-
         return view;
-
 
     }
 }

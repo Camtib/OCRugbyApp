@@ -59,6 +59,10 @@
     <string name="cancel">Cancel</string>
     <string name="search">Search</string>
 
+    <string name="first">1st</string>
+    <string name="second">2nd</string>
+    <string name="b">B</string>
+
 
     <string-array name="positions">
         <item>N/A</item>
