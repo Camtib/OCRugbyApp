@@ -79,28 +79,28 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
                 holder.secondsOpposition.getText().toString().equals("No Fixture") &
                 holder.bsOpposition.getText().toString().equals("No Fixture")) {
 
-            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.firstTeam));
+            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.first));
 
             // only 2nd XV fixture
         } else if (holder.firstsOpposition.getText().toString().equals("No Fixture") &
                 !holder.secondsOpposition.getText().toString().equals("No Fixture") &
                 holder.bsOpposition.getText().toString().equals("No Fixture")) {
 
-            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.secondTeam));
+            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.second));
 
             // only B XV fixture
         } else if (holder.firstsOpposition.getText().toString().equals("No Fixture") &
                 holder.secondsOpposition.getText().toString().equals("No Fixture") &
                 !holder.bsOpposition.getText().toString().equals("No Fixture")) {
 
-            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.bTeam));
+            holder.fixtureNumber.setText(mContext.getResources().getString(R.string.b));
 
             // 1st XV and 2nd XV fixtures
         } else if (!holder.firstsOpposition.getText().toString().equals("No Fixture") &
                 !holder.secondsOpposition.getText().toString().equals("No Fixture") &
                 holder.bsOpposition.getText().toString().equals("No Fixture")) {
 
-            String haveFixture = mContext.getResources().getString(R.string.firstTeam) + "/" + mContext.getResources().getString(R.string.secondTeam);
+            String haveFixture = mContext.getResources().getString(R.string.first) + "/" + mContext.getResources().getString(R.string.second);
             holder.fixtureNumber.setText(haveFixture);
 
             // 1st XV and B XV fixtures
@@ -108,7 +108,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
                 holder.secondsOpposition.getText().toString().equals("No Fixture") &
                 !holder.bsOpposition.getText().toString().equals("No Fixture")) {
 
-            String haveFixture = mContext.getResources().getString(R.string.firstTeam) + "/" + mContext.getResources().getString(R.string.bTeam);
+            String haveFixture = mContext.getResources().getString(R.string.first) + "/" + mContext.getResources().getString(R.string.b);
             holder.fixtureNumber.setText(haveFixture);
 
             // 2nd XV and B XV fixtures
@@ -116,32 +116,37 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
                 !holder.secondsOpposition.getText().toString().equals("No Fixture") &
                 !holder.bsOpposition.getText().toString().equals("No Fixture")) {
 
-            String haveFixture = mContext.getResources().getString(R.string.secondTeam) + "/" + mContext.getResources().getString(R.string.bTeam);
+            String haveFixture = mContext.getResources().getString(R.string.second) + "/" + mContext.getResources().getString(R.string.b);
             holder.fixtureNumber.setText(haveFixture);
 
             // all 3 teams have fixtures
-        } else {
+        } else if (!holder.firstsOpposition.getText().toString().equals("No Fixture") &
+                !holder.secondsOpposition.getText().toString().equals("No Fixture") &
+                !holder.bsOpposition.getText().toString().equals("No Fixture")) {
 
-            String haveFixture = mContext.getResources().getString(R.string.firstTeam) + "/" + mContext.getResources().getString(R.string.secondTeam) + "/" + mContext.getResources().getString(R.string.bTeam);
+            String haveFixture = mContext.getResources().getString(R.string.first) + "/" + mContext.getResources().getString(R.string.second) + "/" + mContext.getResources().getString(R.string.b);
             holder.fixtureNumber.setText(haveFixture);
 
         }
 
-
-
         if (position == 0) {
-            holder.itemView.setBackgroundColor(mContext.getResources().getColor(R.color.lighterGoldForFixtureList));
             holder.expandableInfo.setVisibility(View.VISIBLE);
             holder.itemView.findViewById(R.id.toolBar).setVisibility(View.INVISIBLE);
+            holder.itemView.findViewById(R.id.toolBar2).setVisibility(View.INVISIBLE);
             holder.itemView.findViewById(R.id.infoTV).setVisibility(View.INVISIBLE);
+            holder.itemView.setClickable(false);
+            holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.VISIBLE);
+            holder.itemView.setBackground(mContext.getResources().getDrawable(R.drawable.boarder));
 
-        } else {
+        } else if (position == 1) {
+            holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.VISIBLE);
             boolean isExpandable = fixturesList.get(position).isExpandable();
             holder.expandableInfo.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
-        }
 
-        if (position > 1) {
-            holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.INVISIBLE);
+        } else {
+            holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.GONE);
+            boolean isExpandable = fixturesList.get(position).isExpandable();
+            holder.expandableInfo.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
         }
 
     }
