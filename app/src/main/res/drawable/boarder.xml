@@ -3,7 +3,7 @@
 
     <item android:left="-3dp"  android:right="-3dp">
         <shape android:shape="rectangle">
-            <stroke android:width="3dp" android:color="@color/black" />
+            <stroke android:width="3dp" android:color="@color/colorPrimaryDark" />
             <solid android:color="@color/lighterGoldForFixtureList"/>
         </shape>
     </item>
