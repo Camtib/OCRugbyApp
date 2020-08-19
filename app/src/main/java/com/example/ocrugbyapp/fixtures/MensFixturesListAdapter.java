@@ -138,6 +138,30 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
             holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.VISIBLE);
             holder.itemView.setBackground(mContext.getResources().getDrawable(R.drawable.boarder));
 
+            holder.firstsOpposition.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.firstsHA.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.firstsLC.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.firstsKO.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.firstsMeet.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.firstsAddress.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.firstsPostcode.setTextColor(mContext.getResources().getColor(R.color.black));
+
+            holder.secondsOpposition.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.secondsHA.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.secondsLC.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.secondsKO.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.secondsMeet.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.secondsAddress.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.secondsPostcode.setTextColor(mContext.getResources().getColor(R.color.black));
+
+            holder.bsOpposition.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.bsHA.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.bsLC.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.bsKO.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.bsMeet.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.bsAddress.setTextColor(mContext.getResources().getColor(R.color.black));
+            holder.bsPostcode.setTextColor(mContext.getResources().getColor(R.color.black));
+
         } else if (position == 1) {
             holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.VISIBLE);
             boolean isExpandable = fixturesList.get(position).isExpandable();
