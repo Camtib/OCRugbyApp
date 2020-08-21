@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     EditText mobile_number;
     TextView logoutBtn, deleteBtn;
     TextView changeProfileBtn;
+    ImageView homeBtn;
     String userID;
     Spinner preferredPosition, secondPosition, thirdPosition;
 
@@ -60,6 +62,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         logoutBtn = (TextView) findViewById(R.id.logoutBtn);
         changeProfileBtn = (TextView) findViewById(R.id.changeProfileBtn);
         deleteBtn = (TextView) findViewById(R.id.deleteAccount);
+        homeBtn = (ImageView) findViewById(R.id.homeBtn);
         mStore = FirebaseFirestore.getInstance();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -155,6 +158,14 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
                 }
 
                 return false;
+            }
+        });
+
+        homeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Settings.this, Home.class);
+                startActivity(intent);
             }
         });
 
