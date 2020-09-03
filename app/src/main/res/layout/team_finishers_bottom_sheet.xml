@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/teamBottomSheet"
-    app:behavior_hideable="true"
-    app:behavior_peekHeight="16dp"
+    app:behavior_peekHeight="18dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
