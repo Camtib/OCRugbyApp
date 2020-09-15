@@ -6,12 +6,12 @@ public class MembersCard {
 
     private String name;
     private String nickname;
-    private Uri profileUri;
+    private String userID;
 
-    public MembersCard(String name, String nickname, Uri profileUri) {
+    public MembersCard(String name, String nickname, String userID) {
         this.name = name;
         this.nickname = nickname;
-        this.profileUri = profileUri;
+        this.userID = userID;
     }
 
     public String getName() {
@@ -30,11 +30,11 @@ public class MembersCard {
         this.nickname = nickname;
     }
 
-    public Uri getProfileUri() {
-        return profileUri;
+    public String getUserID() {
+        return userID;
     }
 
-    public void setProfileUri(Uri profileUri) {
-        this.profileUri = profileUri;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 }
