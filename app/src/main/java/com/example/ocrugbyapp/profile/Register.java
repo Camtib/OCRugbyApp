@@ -1,7 +1,6 @@
 package com.example.ocrugbyapp.profile;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,7 +12,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -157,7 +155,7 @@ public class Register extends AppCompatActivity {
                                     Log.d("TAG", "storage failed");
                                 }
                             });
-                            
+
                             final StorageReference fileRef = mStorageRef.child("users/"+userID+"/profile.jpg");
                             fileRef.putFile(genericPic).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                 @Override
