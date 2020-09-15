@@ -1,6 +1,8 @@
 package com.example.ocrugbyapp.profile;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -11,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -25,6 +28,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +44,9 @@ public class Register extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBarSignUp;
     FirebaseFirestore mStore;
+    StorageReference mStorageRef;
     String userID;
+    Uri genericPic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +143,34 @@ public class Register extends AppCompatActivity {
                                     Log.d("TAG", "User profile has been created for "+ userID);
                                 }
                             });
+
+                            mStorageRef = FirebaseStorage.getInstance().getReference();
+                            StorageReference profileRef = mStorageRef.child("generic_profile_pic/Logo-1-e1475594787455.jpg");
+                            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    genericPic = uri;
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("TAG", "storage failed");
+                                }
+                            });
+                            
+                            final StorageReference fileRef = mStorageRef.child("users/"+userID+"/profile.jpg");
+                            fileRef.putFile(genericPic).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    Log.d("TAG", "Generic profile picture has been uploaded");
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("TAG", "Generic profile picture failed to upload");
+                                }
+                            });
+
                             startActivity(new Intent(getApplicationContext(), Home.class));
                         }else {
                             Toast.makeText(Register.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
