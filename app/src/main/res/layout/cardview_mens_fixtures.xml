@@ -51,7 +51,8 @@
         android:text="Availability"
         app:layout_constraintEnd_toEndOf="@+id/fixtureNumber"
         app:layout_constraintStart_toStartOf="@+id/fixtureNumber"
-        app:layout_constraintTop_toBottomOf="@+id/fixtureNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/fixtureNumber"
+        android:buttonTint="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/infoTV"
