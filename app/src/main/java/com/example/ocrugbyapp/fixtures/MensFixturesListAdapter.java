@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -21,6 +26,11 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
 
     private Context mContext;
     List<MensFixtureCard> fixturesList;
+
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore mStore;
+    FirebaseUser user;
+    String userID;
 
     public MensFixturesListAdapter(Context mContext, List<MensFixtureCard> fixturesList) {
         this.mContext = mContext;
@@ -273,6 +283,25 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
                     fixtures.setExpandable(!fixtures.isExpandable());
                     notifyItemChanged(getAdapterPosition());
 
+                }
+            });
+
+            mAuth = FirebaseAuth.getInstance();
+            mStore = FirebaseFirestore.getInstance();
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            userID = user.getUid();
+
+            DocumentReference documentReference = mStore.collection("users").document(userID);
+
+            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                    if (isChecked) {
+                        documentReference.update("Available", true);
+                    } else {
+                        documentReference.update("Available", false);
+                    }
                 }
             });
         }
