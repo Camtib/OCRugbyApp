@@ -122,10 +122,10 @@ public class Register extends AppCompatActivity {
                             Map<String, Object> user = new HashMap<>();
                             user.put("Name", r_firstName + " " + r_surname);
                             user.put("Email",r_email);
-                            user.put("PreferredPosition", "Preferred Position");
-                            user.put("SecondPosition", "Second Choice Position");
-                            user.put("ThirdPosition", "Third Choice Position");
-                            user.put("Nickname", "AKA");
+                            user.put("PreferredPosition", "N/A");
+                            user.put("SecondPosition", "N/A");
+                            user.put("ThirdPosition", "N/A");
+                            user.put("Nickname", "");
                             user.put("Mobile_Number", "Mobile Number");
                             user.put("Admin", false);
 
