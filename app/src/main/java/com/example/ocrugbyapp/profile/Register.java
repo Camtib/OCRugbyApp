@@ -127,6 +127,7 @@ public class Register extends AppCompatActivity {
                             user.put("ThirdPosition", "Third Choice Position");
                             user.put("Nickname", "AKA");
                             user.put("Mobile_Number", "Mobile Number");
+                            user.put("Admin", false);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
