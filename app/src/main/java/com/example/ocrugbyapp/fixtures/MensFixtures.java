@@ -20,9 +20,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
+import java.util.Locale;
 
 
 public class MensFixtures extends Fragment {
@@ -32,6 +35,7 @@ public class MensFixtures extends Fragment {
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
     MensFixturesListAdapter mensFixturesListAdapter;
+    Date fixtureDate;
 
     @Nullable
     @Override
@@ -59,194 +63,135 @@ public class MensFixtures extends Fragment {
                             fixtureNum = "Fixture " + document.getId();
                             date = document.get("date").toString();
 
-                            if (!document.get("firstsOpponent").toString().equals("")) {
-                                firstsOpponent = "1st XV vs " + document.get("firstsOpponent").toString();
-                            } else {
-                                firstsOpponent = "No Fixture";
+                            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+                            try {
+                                fixtureDate = sdf.parse(date);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
 
-                            if (document.get("firstsHA").toString().equals("H")) {
-                                firstsHA = "Home";
-                            } else if (document.get("firstsHA").toString().equals("A")) {
-                                firstsHA = "Away";
-                            } else {
-                                firstsHA = document.get("firstsHA").toString();
-                            }
+                            if (new Date().before(fixtureDate)) {
 
-                            if (document.get("firstsLC").toString().equals("L")) {
-                                firstsLC = "League Match";
-                            } else if (document.get("firstsLC").toString().equals("C")) {
-                                firstsLC = "Cup Match";
-                            } else {
-                                firstsLC = document.get("firstsLC").toString();
-                            }
-
-                            if (document.get("firstsKO").toString().equals("")) {
-                                firstsKO = document.get("firstsKO").toString();
-                            } else {
-                                firstsKO = "Kick Off: " + document.get("firstsKO").toString();
-                            }
-
-                            if (document.get("firstsMeet").toString().equals("")) {
-                                firstsMeet = document.get("firstsMeet").toString();
-                            } else {
-                                firstsMeet = "Meet Time: " + document.get("firstsMeet").toString();
-                            }
-                            
-                            firstsAddress = document.get("firstsAddress").toString();
-                            firstsPostcode = document.get("firstsPostcode").toString();
-
-
-
-                            if (!document.get("secondsOpponent").toString().equals("")) {
-                                secondsOpponent = "2nd XV vs " + document.get("secondsOpponent").toString();
-                            } else {
-                                secondsOpponent = "No Fixture";
-                            }
-
-                            if (document.get("secondsHA").toString().equals("H")) {
-                                secondsHA = "Home";
-                            } else if (document.get("secondsHA").toString().equals("A")) {
-                                secondsHA = "Away";
-                            } else {
-                                secondsHA = document.get("secondsHA").toString();
-                            }
-
-                            if (document.get("secondsLC").toString().equals("L")) {
-                                secondsLC = "League Match";
-                            } else if (document.get("secondsLC").toString().equals("C")) {
-                                secondsLC = "Cup Match";
-                            } else {
-                                secondsLC = document.get("secondsLC").toString();
-                            }
-
-                            if (document.get("secondsKO").toString().equals("")) {
-                                secondsKO = document.get("secondsKO").toString();
-                            } else {
-                                secondsKO = "Kick Off: " + document.get("secondsKO").toString();
-                            }
-
-                            if (document.get("secondsMeet").toString().equals("")) {
-                                secondsMeet = document.get("secondsMeet").toString();
-                            } else {
-                                secondsMeet = "Meet Time: " + document.get("secondsMeet").toString();
-                            }
-
-                            secondsAddress = document.get("secondsAddress").toString();
-                            secondsPostcode = document.get("secondsPostcode").toString();
-
-
-
-                            if (!document.get("bsOpponent").toString().equals("")) {
-                                bsOpponent = "B XV vs " + document.get("bsOpponent").toString();
-                            } else {
-                                bsOpponent = "No Fixture";
-                            }
-
-                            if (document.get("bsHA").toString().equals("H")) {
-                                bsHA = "Home";
-                            } else if (document.get("bsHA").toString().equals("A")) {
-                                bsHA = "Away";
-                            } else {
-                                bsHA = document.get("bsHA").toString();
-                            }
-
-                            if (document.get("bsLC").toString().equals("L")) {
-                                bsLC = "League Match";
-                            } else if (document.get("bsLC").toString().equals("C")) {
-                                bsLC = "Cup Match";
-                            } else {
-                                bsLC = document.get("bsLC").toString();
-                            }
-
-                            if (document.get("bsKO").toString().equals("")) {
-                                bsKO = document.get("bsKO").toString();
-                            } else {
-                                bsKO = "Kick Off: " + document.get("bsKO").toString();
-                            }
-
-                            if (document.get("bsMeet").toString().equals("")) {
-                                bsMeet = document.get("bsMeet").toString();
-                            } else {
-                                bsMeet = "Meet Time: " + document.get("bsMeet").toString();
-                            }
-
-                            bsAddress = document.get("bsAddress").toString();
-                            bsPostcode = document.get("bsPostcode").toString();
-
-                            fixture.add(new MensFixtureCard(fixtureNum, date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode,
-                                    secondsOpponent, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode,
-                                    bsOpponent, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode));
-
-
-
-                            /*
-
-                            class SaveFixture extends AsyncTask<Void, Void, Void> {
-
-                                @Override
-                                protected Void doInBackground(Void... voids) {
-
-                                    MensFixtureCard fixture = new MensFixtureCard();
-
-                                    fixture.setDate(date);
-                                    fixture.setFirstsFixture(firstsOpponent);
-                                    fixture.setFirstsLC(firstsLC);
-                                    fixture.setFirstsHA(firstsHA);
-                                    fixture.setFirstsKO(firstsKO);
-                                    fixture.setFirstsMeet(firstsMeet);
-                                    fixture.setFirstsAddress(firstsAddress);
-                                    fixture.setFirstsPostcode(firstsPostcode);
-
-                                    fixture.setSecondsFixture(secondsOpponent);
-                                    fixture.setSecondsLC(secondsLC);
-                                    fixture.setSecondsHA(secondsHA);
-                                    fixture.setSecondsKO(secondsKO);
-                                    fixture.setSecondsMeet(secondsMeet);
-                                    fixture.setSecondsAddress(secondsAddress);
-                                    fixture.setSecondsPostcode(secondsPostcode);
-
-                                    fixture.setBsFixture(bsOpponent);
-                                    fixture.setBsLC(bsLC);
-                                    fixture.setBsHA(bsHA);
-                                    fixture.setBsKO(bsKO);
-                                    fixture.setBsMeet(bsMeet);
-                                    fixture.setBsAddress(bsAddress);
-                                    fixture.setBsPostcode(bsPostcode);
-
-
-                                    fixture.setExpandable(false);
-
-                                    FixtureDatabaseClient.getInstance(getApplicationContext()).getAppDatabase()
-                                            .fixtureDao()
-                                            .insertFixtures(fixture);
-
-
-
-
-                                    return null;
+                                if (!document.get("firstsOpponent").toString().equals("")) {
+                                    firstsOpponent = "1st XV vs " + document.get("firstsOpponent").toString();
+                                } else {
+                                    firstsOpponent = "No Fixture";
                                 }
 
-                                @Override
-                                protected void onPostExecute(Void aVoid) {
-                                    super.onPostExecute(aVoid);
-                                    finish();
-
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-
-
+                                if (document.get("firstsHA").toString().equals("H")) {
+                                    firstsHA = "Home";
+                                } else if (document.get("firstsHA").toString().equals("A")) {
+                                    firstsHA = "Away";
+                                } else {
+                                    firstsHA = document.get("firstsHA").toString();
                                 }
+
+                                if (document.get("firstsLC").toString().equals("L")) {
+                                    firstsLC = "League Match";
+                                } else if (document.get("firstsLC").toString().equals("C")) {
+                                    firstsLC = "Cup Match";
+                                } else {
+                                    firstsLC = document.get("firstsLC").toString();
+                                }
+
+                                if (document.get("firstsKO").toString().equals("")) {
+                                    firstsKO = document.get("firstsKO").toString();
+                                } else {
+                                    firstsKO = "Kick Off: " + document.get("firstsKO").toString();
+                                }
+
+                                if (document.get("firstsMeet").toString().equals("")) {
+                                    firstsMeet = document.get("firstsMeet").toString();
+                                } else {
+                                    firstsMeet = "Meet Time: " + document.get("firstsMeet").toString();
+                                }
+
+                                firstsAddress = document.get("firstsAddress").toString();
+                                firstsPostcode = document.get("firstsPostcode").toString();
+
+
+                                if (!document.get("secondsOpponent").toString().equals("")) {
+                                    secondsOpponent = "2nd XV vs " + document.get("secondsOpponent").toString();
+                                } else {
+                                    secondsOpponent = "No Fixture";
+                                }
+
+                                if (document.get("secondsHA").toString().equals("H")) {
+                                    secondsHA = "Home";
+                                } else if (document.get("secondsHA").toString().equals("A")) {
+                                    secondsHA = "Away";
+                                } else {
+                                    secondsHA = document.get("secondsHA").toString();
+                                }
+
+                                if (document.get("secondsLC").toString().equals("L")) {
+                                    secondsLC = "League Match";
+                                } else if (document.get("secondsLC").toString().equals("C")) {
+                                    secondsLC = "Cup Match";
+                                } else {
+                                    secondsLC = document.get("secondsLC").toString();
+                                }
+
+                                if (document.get("secondsKO").toString().equals("")) {
+                                    secondsKO = document.get("secondsKO").toString();
+                                } else {
+                                    secondsKO = "Kick Off: " + document.get("secondsKO").toString();
+                                }
+
+                                if (document.get("secondsMeet").toString().equals("")) {
+                                    secondsMeet = document.get("secondsMeet").toString();
+                                } else {
+                                    secondsMeet = "Meet Time: " + document.get("secondsMeet").toString();
+                                }
+
+                                secondsAddress = document.get("secondsAddress").toString();
+                                secondsPostcode = document.get("secondsPostcode").toString();
+
+
+                                if (!document.get("bsOpponent").toString().equals("")) {
+                                    bsOpponent = "B XV vs " + document.get("bsOpponent").toString();
+                                } else {
+                                    bsOpponent = "No Fixture";
+                                }
+
+                                if (document.get("bsHA").toString().equals("H")) {
+                                    bsHA = "Home";
+                                } else if (document.get("bsHA").toString().equals("A")) {
+                                    bsHA = "Away";
+                                } else {
+                                    bsHA = document.get("bsHA").toString();
+                                }
+
+                                if (document.get("bsLC").toString().equals("L")) {
+                                    bsLC = "League Match";
+                                } else if (document.get("bsLC").toString().equals("C")) {
+                                    bsLC = "Cup Match";
+                                } else {
+                                    bsLC = document.get("bsLC").toString();
+                                }
+
+                                if (document.get("bsKO").toString().equals("")) {
+                                    bsKO = document.get("bsKO").toString();
+                                } else {
+                                    bsKO = "Kick Off: " + document.get("bsKO").toString();
+                                }
+
+                                if (document.get("bsMeet").toString().equals("")) {
+                                    bsMeet = document.get("bsMeet").toString();
+                                } else {
+                                    bsMeet = "Meet Time: " + document.get("bsMeet").toString();
+                                }
+
+                                bsAddress = document.get("bsAddress").toString();
+                                bsPostcode = document.get("bsPostcode").toString();
+
+                                fixture.add(new MensFixtureCard(fixtureNum, date, firstsOpponent, firstsHA, firstsLC, firstsKO, firstsMeet, firstsAddress, firstsPostcode,
+                                        secondsOpponent, secondsHA, secondsLC, secondsKO, secondsMeet, secondsAddress, secondsPostcode,
+                                        bsOpponent, bsHA, bsLC, bsKO, bsMeet, bsAddress, bsPostcode));
+
                             }
-
-                            SaveFixture sf = new SaveFixture();
-                            sf.execute();
-
-                             */
-
-
                         }
                     }
-
                     mensFixturesListAdapter = new MensFixturesListAdapter(view.getContext(), fixture);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
                     mRecyclerView.setAdapter(mensFixturesListAdapter);
