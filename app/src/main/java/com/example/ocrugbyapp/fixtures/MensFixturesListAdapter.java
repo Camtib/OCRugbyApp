@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -135,7 +136,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
             holder.itemView.findViewById(R.id.toolBar2).setVisibility(View.INVISIBLE);
             holder.itemView.findViewById(R.id.infoTV).setVisibility(View.INVISIBLE);
             holder.itemView.setClickable(false);
-            holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.VISIBLE);
+            holder.checkBox.setVisibility(View.VISIBLE);
             holder.itemView.setBackground(mContext.getResources().getDrawable(R.drawable.boarder));
 
             holder.firstsOpposition.setTextColor(mContext.getResources().getColor(R.color.black));
@@ -161,12 +162,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
             holder.bsMeet.setTextColor(mContext.getResources().getColor(R.color.black));
             holder.bsAddress.setTextColor(mContext.getResources().getColor(R.color.black));
             holder.bsPostcode.setTextColor(mContext.getResources().getColor(R.color.black));
-
-        } else if (position == 1) {
-            holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.VISIBLE);
-            boolean isExpandable = fixturesList.get(position).isExpandable();
-            holder.expandableInfo.setVisibility(isExpandable ? View.VISIBLE : View.GONE);
-
+            
         } else {
             holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.GONE);
             boolean isExpandable = fixturesList.get(position).isExpandable();
@@ -189,6 +185,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
         ConstraintLayout parent;
         ConstraintLayout expandableInfo, firstsInfoList, secondsInfoList, bsInfoList;
         TabLayout tabLayout;
+        CheckBox checkBox;
 
         public FixturesVH(@NonNull final View itemView) {
             super(itemView);
@@ -219,6 +216,8 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
             bsMeet = itemView.findViewById(R.id.bsMeet);
             bsAddress = itemView.findViewById(R.id.bsAddress);
             bsPostcode = itemView.findViewById(R.id.bsPostcode);
+
+            checkBox = itemView.findViewById(R.id.availabilitySwitch);
 
             firstsInfoList = itemView.findViewById(R.id.firstsInfoConstraintLayout);
             secondsInfoList = itemView.findViewById(R.id.secondsInfoConstraintLayout);
