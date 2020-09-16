@@ -162,7 +162,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
             holder.bsMeet.setTextColor(mContext.getResources().getColor(R.color.black));
             holder.bsAddress.setTextColor(mContext.getResources().getColor(R.color.black));
             holder.bsPostcode.setTextColor(mContext.getResources().getColor(R.color.black));
-            
+
         } else {
             holder.itemView.findViewById(R.id.availabilitySwitch).setVisibility(View.GONE);
             boolean isExpandable = fixturesList.get(position).isExpandable();
