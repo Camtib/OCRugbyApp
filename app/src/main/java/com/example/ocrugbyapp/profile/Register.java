@@ -128,6 +128,7 @@ public class Register extends AppCompatActivity {
                             user.put("Nickname", "");
                             user.put("Mobile_Number", "Mobile Number");
                             user.put("Admin", false);
+                            user.put("Available", false);
 
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
