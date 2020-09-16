@@ -187,11 +187,7 @@ public class Members extends AppCompatActivity {
                             profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    if (!nickname.equals("AKA")) {
-                                        members.add(new MembersCard(name, nickname, uri));
-                                    } else {
-                                        members.add(new MembersCard(name, "", uri));
-                                    }
+                                    members.add(new MembersCard(name, nickname, uri));
                                     adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
                                     membersList.setAdapter(adapter);
                                 }
