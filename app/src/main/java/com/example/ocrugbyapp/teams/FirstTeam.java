@@ -111,7 +111,12 @@ public class FirstTeam extends Fragment {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot.get("Admin").equals(false)) {
-                    
+
+                    confirmTeamBtn.setClickable(false);
+                    confirmTeamBtn.setText(getString(R.string.firstXVStarters));
+
+                    confirmSubsBtn.setClickable(false);
+                    confirmSubsBtn.setText(getString(R.string.firstXVFinishers));
                 }
             }
         });
