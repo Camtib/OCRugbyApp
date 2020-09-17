@@ -62,6 +62,7 @@
     <string name="first">1st</string>
     <string name="second">2nd</string>
     <string name="b">B</string>
+    <string name="verify_email">Please ensure you have verified your email address before attempting to log in</string>
 
 
     <string-array name="positions">
