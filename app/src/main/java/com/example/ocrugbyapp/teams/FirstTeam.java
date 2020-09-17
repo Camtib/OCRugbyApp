@@ -118,35 +118,60 @@ public class FirstTeam extends Fragment {
                     confirmSubsBtn.setClickable(false);
                     confirmSubsBtn.setText(getString(R.string.firstXVFinishers));
 
-                    DocumentReference documentReference1 = mStore.collection("teams").document("FirstsTeam");
-                    documentReference1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    getSelectedPlayer(no1playerName,"1", "Loosehead Prop");
+                    getSelectedPlayer(no2playerName, "2", "Hooker");
+                    getSelectedPlayer(no3playerName, "3", "Tighthead Prop");
+                    getSelectedPlayer(no4playerName, "4", "Lock");
+                    getSelectedPlayer(no5playerName, "5", "Lock");
+                    getSelectedPlayer(no6playerName, "6", "Blindside Flanker");
+                    getSelectedPlayer(no7playerName, "7", "Openside Flanker");
+                    getSelectedPlayer(no8playerName, "8", "Number 8");
+                    getSelectedPlayer(no9playerName, "9", "Scrum-half");
+                    getSelectedPlayer(no10playerName, "10", "Fly-half");
+                    getSelectedPlayer(no11playerName, "11", "Left Wing");
+                    getSelectedPlayer(no12playerName, "12", "Inside Centre");
+                    getSelectedPlayer(no13playerName, "13", "Outside Centre");
+                    getSelectedPlayer(no14playerName, "14", "Right Wing");
+                    getSelectedPlayer(no15playerName, "15", "Full Back");
+                    getSelectedPlayer(sub1name, "sub1", "Sub 1");
+                    getSelectedPlayer(sub2name, "sub2", "Sub 2");
+                    getSelectedPlayer(sub3name, "sub3", "Sub 3");
+                    getSelectedPlayer(sub4name, "sub4", "Sub 4");
+                    getSelectedPlayer(sub5name, "sub5", "Sub 5");
+                    getSelectedPlayer(sub6name, "sub6", "Sub 6");
+                    getSelectedPlayer(sub7name, "sub7", "Sub 7");
+                    getSelectedPlayer(sub8name, "sub8", "Sub 8");
+                    getSelectedPlayer(sub9name, "sub9", "Sub 9");
+                    
+                }
+            }
+        });
+
+        return view;
+    }
+
+    private void getSelectedPlayer(TextView textView, String field, String positionName) {
+        DocumentReference documentReference1 = mStore.collection("teams").document("FirstsTeam");
+        documentReference1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                String playerID = documentSnapshot.getString(field);
+                if (playerID.isEmpty()) {
+                    textView.setText(positionName);
+                }else {
+                    DocumentReference docRef = mStore.collection("users").document(playerID);
+                    docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                         @Override
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                            if (documentSnapshot.exists()) {
-
-                                String player1ID = documentSnapshot.getString("1");
-                                if (player1ID.isEmpty()) {
-                                    no1playerName.setText("Loosehead Prop");
-                                }else {
-                                    DocumentReference doc1 = mStore.collection("users").document(player1ID);
-                                    doc1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                                            if (documentSnapshot.getString("Nickname").isEmpty()) {
-                                                no1playerName.setText(documentSnapshot.getString("Name"));
-                                            }else {
-                                                no1playerName.setText(documentSnapshot.getString("Nickname"));
-                                            }
-                                        }
-                                    });
-                                }
+                            if (documentSnapshot.getString("Nickname").isEmpty()) {
+                                textView.setText(documentSnapshot.getString("Name"));
+                            }else {
+                                textView.setText(documentSnapshot.getString("Nickname"));
                             }
                         }
                     });
                 }
             }
         });
-
-        return view;
     }
 }
