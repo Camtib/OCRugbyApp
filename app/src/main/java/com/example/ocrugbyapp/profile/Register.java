@@ -169,7 +169,7 @@ public class Register extends AppCompatActivity {
                                 }
                             });
 
-                            startActivity(new Intent(getApplicationContext(), Home.class));
+                            startActivity(new Intent(getApplicationContext(), Login.class));
                         }else {
                             Toast.makeText(Register.this, "Error! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             progressBarSignUp.setVisibility(View.GONE);
