@@ -74,6 +74,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no1Player" />
 
                         <TextView
+                            android:id="@+id/no1playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -106,6 +107,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no2Player" />
 
                         <TextView
+                            android:id="@+id/no2playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -138,6 +140,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no3Player" />
 
                         <TextView
+                            android:id="@+id/no3playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -171,6 +174,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no4Player" />
 
                         <TextView
+                            android:id="@+id/no4playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -204,6 +208,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no5Player" />
 
                         <TextView
+                            android:id="@+id/no5playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -238,6 +243,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no6Player" />
 
                         <TextView
+                            android:id="@+id/no6playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -271,6 +277,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no7Player" />
 
                         <TextView
+                            android:id="@+id/no7playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -304,6 +311,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no8Player" />
 
                         <TextView
+                            android:id="@+id/no8playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -337,6 +345,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no9Player" />
 
                         <TextView
+                            android:id="@+id/no9playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -370,6 +379,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no10Player" />
 
                         <TextView
+                            android:id="@+id/no10playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -403,6 +413,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no12Player" />
 
                         <TextView
+                            android:id="@+id/no12playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -436,6 +447,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no13Player" />
 
                         <TextView
+                            android:id="@+id/no13playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -469,6 +481,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no14Player" />
 
                         <TextView
+                            android:id="@+id/no14playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -501,6 +514,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no11Player" />
 
                         <TextView
+                            android:id="@+id/no11playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"
@@ -534,6 +548,7 @@
                             app:layout_constraintTop_toTopOf="@+id/no15Player" />
 
                         <TextView
+                            android:id="@+id/no15playerName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Select Player"

@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -12,11 +15,80 @@ import com.example.ocrugbyapp.R;
 
 public class FirstTeam extends Fragment {
 
+    TextView no1playerName, no2playerName, no3playerName, no4playerName, no5playerName,
+            no6playerName, no7playerName, no8playerName, no9playerName, no10playerName,
+            no11playerName, no12playerName, no13playerName, no14playerName, no15playerName;
+
+    TextView sub1name, sub2name, sub3name, sub4name, sub5name, sub6name, sub7name, sub8name,sub9name;
+
+    ImageView no1player, no2player, no3player, no4player, no5player, no6player, no7player, no8player,
+            no9player, no10player, no11player, no12player, no13player, no14player, no15player,
+            no16player, no17player, no18player, no19player, no20player, no21player, no22player,
+            no23player, no24player;
+
+    Button confirmTeamBtn, confirmSubsBtn;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_firsts_team, container, false);
+        View view = inflater.inflate(R.layout.fragment_firsts_team, container, false);
+
+        no1playerName = view.findViewById(R.id.no1playerName);
+        no2playerName = view.findViewById(R.id.no2playerName);
+        no3playerName = view.findViewById(R.id.no3playerName);
+        no4playerName = view.findViewById(R.id.no4playerName);
+        no5playerName = view.findViewById(R.id.no5playerName);
+        no6playerName = view.findViewById(R.id.no6playerName);
+        no7playerName = view.findViewById(R.id.no7playerName);
+        no8playerName = view.findViewById(R.id.no8playerName);
+        no9playerName = view.findViewById(R.id.no9playerName);
+        no10playerName = view.findViewById(R.id.no10playerName);
+        no11playerName = view.findViewById(R.id.no11playerName);
+        no12playerName = view.findViewById(R.id.no12playerName);
+        no13playerName = view.findViewById(R.id.no13playerName);
+        no14playerName = view.findViewById(R.id.no14playerName);
+        no15playerName = view.findViewById(R.id.no15playerName);
+
+        sub1name = view.findViewById(R.id.player16Name);
+        sub2name = view.findViewById(R.id.player17Name);
+        sub3name = view.findViewById(R.id.player18Name);
+        sub4name = view.findViewById(R.id.player19Name);
+        sub5name = view.findViewById(R.id.player20Name);
+        sub6name = view.findViewById(R.id.player21Name);
+        sub7name = view.findViewById(R.id.player22Name);
+        sub8name = view.findViewById(R.id.player23Name);
+        sub9name = view.findViewById(R.id.player24Name);
+
+        no1player = view.findViewById(R.id.no1Player);
+        no2player = view.findViewById(R.id.no2Player);
+        no3player = view.findViewById(R.id.no3Player);
+        no4player = view.findViewById(R.id.no4Player);
+        no5player = view.findViewById(R.id.no5Player);
+        no6player = view.findViewById(R.id.no6Player);
+        no7player = view.findViewById(R.id.no7Player);
+        no8player = view.findViewById(R.id.no8Player);
+        no9player = view.findViewById(R.id.no9Player);
+        no10player = view.findViewById(R.id.no10Player);
+        no11player = view.findViewById(R.id.no11Player);
+        no12player = view.findViewById(R.id.no12Player);
+        no13player = view.findViewById(R.id.no13Player);
+        no14player = view.findViewById(R.id.no14Player);
+        no15player = view.findViewById(R.id.no15Player);
+        no16player = view.findViewById(R.id.player16);
+        no17player = view.findViewById(R.id.player17);
+        no18player = view.findViewById(R.id.player18);
+        no19player = view.findViewById(R.id.player19);
+        no20player = view.findViewById(R.id.player20);
+        no21player = view.findViewById(R.id.player21);
+        no22player = view.findViewById(R.id.player22);
+        no23player = view.findViewById(R.id.player23);
+        no24player = view.findViewById(R.id.player24);
+
+        confirmTeamBtn = view.findViewById(R.id.confirmSelectionBtn);
+        confirmSubsBtn = view.findViewById(R.id.confirmSubSelectionBtn);
+
+        return view;
     }
 }
