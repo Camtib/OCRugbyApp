@@ -74,8 +74,6 @@ public class Login extends AppCompatActivity {
 
                 progressBar.setVisibility(View.VISIBLE);
 
-
-
                 //checking the email and password
                 mAuth.signInWithEmailAndPassword(r_email, r_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -89,7 +87,7 @@ public class Login extends AppCompatActivity {
                                     Intent intent = new Intent(Login.this, Home.class);
                                     startActivity(intent);
                                 } else {
-                                    Toast.makeText(Login.this,"Email is not verified \n Check your email inbox", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Login.this,"Email is not verified\nPlease check your email inbox", Toast.LENGTH_SHORT).show();
                                     mAuth.signOut();
                                 }
 

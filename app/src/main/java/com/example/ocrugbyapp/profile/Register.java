@@ -147,7 +147,18 @@ public class Register extends AppCompatActivity {
                             profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    genericPic = uri;
+                                    final StorageReference fileRef = mStorageRef.child("users/"+userID+"/profile.jpg");
+                                    fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                        @Override
+                                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                            Log.d("TAG", "Generic profile picture has been uploaded");
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("TAG", "Generic profile picture failed to upload");
+                                        }
+                                    });
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -156,18 +167,7 @@ public class Register extends AppCompatActivity {
                                 }
                             });
 
-                            final StorageReference fileRef = mStorageRef.child("users/"+userID+"/profile.jpg");
-                            fileRef.putFile(genericPic).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    Log.d("TAG", "Generic profile picture has been uploaded");
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d("TAG", "Generic profile picture failed to upload");
-                                }
-                            });
+
 
                             startActivity(new Intent(getApplicationContext(), Login.class));
                         }else {
