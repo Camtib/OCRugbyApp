@@ -47,7 +47,7 @@ public class MensFixtures extends Fragment {
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
 
-        mStore.collection("ocrfcFixtures").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        mStore.collection("ocrfcFixtures").orderBy("fixtureNum").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
