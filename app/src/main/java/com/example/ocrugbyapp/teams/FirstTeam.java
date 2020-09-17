@@ -117,6 +117,32 @@ public class FirstTeam extends Fragment {
 
                     confirmSubsBtn.setClickable(false);
                     confirmSubsBtn.setText(getString(R.string.firstXVFinishers));
+
+                    DocumentReference documentReference1 = mStore.collection("teams").document("FirstsTeam");
+                    documentReference1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                            if (documentSnapshot.exists()) {
+
+                                String player1ID = documentSnapshot.getString("1");
+                                if (player1ID.isEmpty()) {
+                                    no1playerName.setText("Loosehead Prop");
+                                }else {
+                                    DocumentReference doc1 = mStore.collection("users").document(player1ID);
+                                    doc1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                                            if (documentSnapshot.getString("Nickname").isEmpty()) {
+                                                no1playerName.setText(documentSnapshot.getString("Name"));
+                                            }else {
+                                                no1playerName.setText(documentSnapshot.getString("Nickname"));
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });
