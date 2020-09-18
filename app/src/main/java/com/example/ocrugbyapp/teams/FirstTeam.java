@@ -142,7 +142,7 @@ public class FirstTeam extends Fragment {
                     getSelectedPlayer(sub7name, "sub7", "Sub 7");
                     getSelectedPlayer(sub8name, "sub8", "Sub 8");
                     getSelectedPlayer(sub9name, "sub9", "Sub 9");
-                    
+
                 }
             }
         });
