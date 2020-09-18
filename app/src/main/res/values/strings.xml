@@ -63,6 +63,8 @@
     <string name="second">2nd</string>
     <string name="b">B</string>
 
+    <string name="selectPlayer">Select Player</string>
+
     <string name="firstXVStarters">1st XV Starting Team</string>
     <string name="firstXVFinishers">1st XV Finishers</string>
 

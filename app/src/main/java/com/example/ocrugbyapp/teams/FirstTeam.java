@@ -1,5 +1,6 @@
 package com.example.ocrugbyapp.teams;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -143,6 +144,57 @@ public class FirstTeam extends Fragment {
                     getSelectedPlayer(sub8name, "sub8", "Sub 8");
                     getSelectedPlayer(sub9name, "sub9", "Sub 9");
 
+                }else {
+
+                    getSelectedPlayerAdmin(no1playerName,"1", "Loosehead Prop");
+                    getSelectedPlayerAdmin(no2playerName, "2", "Hooker");
+                    getSelectedPlayerAdmin(no3playerName, "3", "Tighthead Prop");
+                    getSelectedPlayerAdmin(no4playerName, "4", "Lock");
+                    getSelectedPlayerAdmin(no5playerName, "5", "Lock");
+                    getSelectedPlayerAdmin(no6playerName, "6", "Blindside Flanker");
+                    getSelectedPlayerAdmin(no7playerName, "7", "Openside Flanker");
+                    getSelectedPlayerAdmin(no8playerName, "8", "Number 8");
+                    getSelectedPlayerAdmin(no9playerName, "9", "Scrum-half");
+                    getSelectedPlayerAdmin(no10playerName, "10", "Fly-half");
+                    getSelectedPlayerAdmin(no11playerName, "11", "Left Wing");
+                    getSelectedPlayerAdmin(no12playerName, "12", "Inside Centre");
+                    getSelectedPlayerAdmin(no13playerName, "13", "Outside Centre");
+                    getSelectedPlayerAdmin(no14playerName, "14", "Right Wing");
+                    getSelectedPlayerAdmin(no15playerName, "15", "Full Back");
+                    getSelectedPlayerAdmin(sub1name, "sub1", "Sub 1");
+                    getSelectedPlayerAdmin(sub2name, "sub2", "Sub 2");
+                    getSelectedPlayerAdmin(sub3name, "sub3", "Sub 3");
+                    getSelectedPlayerAdmin(sub4name, "sub4", "Sub 4");
+                    getSelectedPlayerAdmin(sub5name, "sub5", "Sub 5");
+                    getSelectedPlayerAdmin(sub6name, "sub6", "Sub 6");
+                    getSelectedPlayerAdmin(sub7name, "sub7", "Sub 7");
+                    getSelectedPlayerAdmin(sub8name, "sub8", "Sub 8");
+                    getSelectedPlayerAdmin(sub9name, "sub9", "Sub 9");
+
+                    selectPlayer(no1player, "1");
+                    selectPlayer(no2player, "2");
+                    selectPlayer(no3player, "3");
+                    selectPlayer(no4player, "4");
+                    selectPlayer(no5player, "5");
+                    selectPlayer(no6player, "6");
+                    selectPlayer(no7player, "7");
+                    selectPlayer(no8player, "8");
+                    selectPlayer(no9player, "9");
+                    selectPlayer(no10player, "10");
+                    selectPlayer(no11player, "11");
+                    selectPlayer(no12player, "12");
+                    selectPlayer(no13player, "13");
+                    selectPlayer(no14player, "14");
+                    selectPlayer(no15player, "15");
+                    selectPlayer(no16player, "sub1");
+                    selectPlayer(no17player, "sub2");
+                    selectPlayer(no18player, "sub3");
+                    selectPlayer(no19player, "sub4");
+                    selectPlayer(no20player, "sub5");
+                    selectPlayer(no21player, "sub6");
+                    selectPlayer(no22player, "sub7");
+                    selectPlayer(no23player, "sub8");
+                    selectPlayer(no24player, "sub9");
                 }
             }
         });
@@ -171,6 +223,43 @@ public class FirstTeam extends Fragment {
                         }
                     });
                 }
+            }
+        });
+    }
+
+    private void getSelectedPlayerAdmin(TextView textView, String field, String positionName) {
+        DocumentReference documentReference1 = mStore.collection("teams").document("FirstsTeam");
+        documentReference1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                String playerID = documentSnapshot.getString(field);
+                if (playerID.isEmpty()) {
+                    textView.setText(getString(R.string.selectPlayer));
+                }else {
+                    DocumentReference docRef = mStore.collection("users").document(playerID);
+                    docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                            if (documentSnapshot.getString("Nickname").isEmpty()) {
+                                textView.setText(documentSnapshot.getString("Name"));
+                            }else {
+                                textView.setText(documentSnapshot.getString("Nickname"));
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void selectPlayer(ImageView imageView, String position) {
+        imageView.setClickable(true);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AdminPickTeamList.class);
+                intent.putExtra("Position", position);
+                startActivity(intent);
             }
         });
     }
