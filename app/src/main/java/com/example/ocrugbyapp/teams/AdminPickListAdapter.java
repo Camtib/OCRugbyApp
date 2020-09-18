@@ -80,20 +80,43 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
             }
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        DocumentReference documentReference1 = mStore.collection("teams").document(team);
+        documentReference1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View v) {
-                DocumentReference documentReference1 = mStore.collection("teams").document(team);
-                documentReference1.update(field, userID).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(mContext, "Player added", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(mContext, Teams.class);
-                        mContext.startActivity(intent);
-                    }
-                });
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.get(field).toString().equals(userID)) {
+                    holder.deleteIcon.setVisibility(View.VISIBLE);
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            documentReference1.update(field, "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(mContext, "Player removed", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(mContext, Teams.class);
+                                    mContext.startActivity(intent);
+                                }
+                            });
+                        }
+                    });
+                }else {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            documentReference1.update(field, userID).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(mContext, "Player added", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(mContext, Teams.class);
+                                    mContext.startActivity(intent);
+                                }
+                            });
+                        }
+                    });
+                }
             }
         });
+
 
         StorageReference storageReference = mStorageRef.child("users/"+userID+"/profile.jpg");
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -118,7 +141,7 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
     public class PlayersVH extends RecyclerView.ViewHolder {
 
         TextView name, position;
-        ImageView profileImage;
+        ImageView profileImage, deleteIcon;
 
         public PlayersVH(@NonNull View itemView) {
             super(itemView);
@@ -126,6 +149,7 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
             name = itemView.findViewById(R.id.textViewName);
             position = itemView.findViewById(R.id.textViewNickname);
             profileImage = itemView.findViewById(R.id.profilePics);
+            deleteIcon = itemView.findViewById(R.id.imageViewDelete);
         }
     }
 }
