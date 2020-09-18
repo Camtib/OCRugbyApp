@@ -259,6 +259,7 @@ public class FirstTeam extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AdminPickTeamList.class);
                 intent.putExtra("Position", position);
+                intent.putExtra("Team", "FirstsTeam");
                 startActivity(intent);
             }
         });
