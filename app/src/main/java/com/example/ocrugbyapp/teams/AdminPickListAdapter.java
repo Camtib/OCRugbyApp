@@ -1,6 +1,7 @@
 package com.example.ocrugbyapp.teams;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +40,7 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
 
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
-    String userID;
+    String userID, team, field;
     StorageReference mStorageRef;
     Uri profilePic;
 
@@ -60,6 +62,8 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
 
         TeamPlayer player = playerList.get(position);
         userID = player.getUserID();
+        team = player.getTeam();
+        field = player.getPosition();
 
         mStore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -73,6 +77,21 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
                     holder.name.setText(documentSnapshot.get("Name").toString());
                     holder.position.setText(documentSnapshot.get("PreferredPosition").toString());
                 }
+            }
+        });
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DocumentReference documentReference1 = mStore.collection("teams").document(team);
+                documentReference1.update(field, userID).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(mContext, "Player added", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(mContext, Teams.class);
+                        mContext.startActivity(intent);
+                    }
+                });
             }
         });
 

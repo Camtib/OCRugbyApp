@@ -7,17 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.members.Members;
-import com.example.ocrugbyapp.members.MembersCard;
-import com.example.ocrugbyapp.members.MembersListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -33,7 +27,6 @@ public class AdminPickTeamList extends AppCompatActivity {
     String team;
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
-    List<TeamPlayer> playerList;
     String userID;
     Query searchQuery;
 
@@ -51,23 +44,11 @@ public class AdminPickTeamList extends AppCompatActivity {
         mStore = FirebaseFirestore.getInstance();
 
         searchQuery = mStore.collection("users").whereEqualTo("Available", true);
-        showAdapter(searchQuery);
+        showAdapter(searchQuery, team, position);
 
 
     }
-
-    private void updateTeam(String team, String position, String userID) {
-        DocumentReference documentReference = mStore.collection("teams").document(team);
-        documentReference.update(position, userID).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Intent intent1 = new Intent(AdminPickTeamList.this, Teams.class);
-                startActivity(intent1);
-            }
-        });
-    }
-
-    private void showAdapter(Query q1) {
+    private void showAdapter(Query q1, String team, String position) {
         q1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -75,7 +56,7 @@ public class AdminPickTeamList extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         userID = document.getId();
-                        playerList.add(new TeamPlayer(userID));
+                        playerList.add(new TeamPlayer(userID, team, position));
                     }
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(AdminPickTeamList.this));
                     mRecyclerView.setAdapter(new AdminPickListAdapter(AdminPickTeamList.this, playerList));
