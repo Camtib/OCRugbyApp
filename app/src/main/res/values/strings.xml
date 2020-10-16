@@ -62,6 +62,18 @@
     <string name="first">1st</string>
     <string name="second">2nd</string>
     <string name="b">B</string>
+    <string name="verify_email">Please ensure you have verified your email address before attempting to log in</string>
+
+    <string name="selectPlayer">Select Player</string>
+
+    <string name="firstXVStarters">1st XV Starting Team</string>
+    <string name="firstXVFinishers">1st XV Finishers</string>
+
+    <string name="secondXVStarters">2nd XV Starting Team</string>
+    <string name="secondXVFinishers">2nd XV Finishers</string>
+
+    <string name="bXVStarters">B XV Starting Team</string>
+    <string name="bXVFinishers">B XV Finishers</string>
 
 
     <string-array name="positions">

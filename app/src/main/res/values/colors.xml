@@ -2,10 +2,12 @@
 <resources>
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#003366</color>
-    <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccent">#FFBB33</color>
     <color name="black">#000</color>
     <color name="SignUpBtn">#2336A3</color>
     <color name="Gold">#FFBB33</color>
     <color name="lighterBlueForFixtureList">#d6e7ff</color>
     <color name="lighterGoldForFixtureList">#ffdc9d</color>
+    <color name="white">#FFFFFF</color>
+    <color name="PitchGreen">#008900</color>
 </resources>

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.SectionsPagerAdapter;
@@ -20,14 +21,17 @@ import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Profile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Teams extends AppCompatActivity {
 
     private static final String TAG = "Teams";
-    private SectionsPagerAdapter sectionsPagerAdapter;
+    private TeamsPagerAdapter teamsPagerAdapter;
 
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
+
+    private String[] titles = new String[]{"1st XV", "2nd XV", "B XV", "Women's XV"};
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -90,28 +94,13 @@ public class Teams extends AppCompatActivity {
         });
 
         //fragments and tabLayout
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        teamsPagerAdapter = new TeamsPagerAdapter(this);
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        setUpViewPager(mViewPager);
+        mViewPager = (ViewPager2) findViewById(R.id.container);
+        mViewPager.setAdapter(teamsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
 
-        tabLayout.getTabAt(0).setText("1st XV");
-        tabLayout.getTabAt(1).setText("2nd XV");
-        tabLayout.getTabAt(2).setText("B XV");
-        tabLayout.getTabAt(3).setText("Women's XV");
-
-    }
-
-    private void setUpViewPager(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstTeam());
-        adapter.addFragment(new SecondTeam());
-        adapter.addFragment(new BTeam());
-        adapter.addFragment(new WomensTeam());
-        viewPager.setAdapter(adapter);
-
+        new TabLayoutMediator(tabLayout, mViewPager,(tab, position) -> tab.setText(titles[position])).attach();
     }
 }

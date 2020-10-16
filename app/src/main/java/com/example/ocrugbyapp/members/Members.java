@@ -1,5 +1,6 @@
 package com.example.ocrugbyapp.members;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -103,6 +105,14 @@ public class Members extends AppCompatActivity {
             }
         });
 
+        search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    hideKeyboard(v);
+                }
+            }
+        });
 
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
@@ -183,6 +193,7 @@ public class Members extends AppCompatActivity {
                             final String name = document.get("Name").toString();
                             final String nickname = document.get("Nickname").toString();
                             userID = document.getId();
+
                             final StorageReference profileRef = mStorageRef.child("users/" + userID + "/profile.jpg");
                             profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
@@ -196,13 +207,19 @@ public class Members extends AppCompatActivity {
                                 public void onFailure(@NonNull Exception e) {
                                     Log.d(TAG, "storage failed");
                                 }
-                            });
                         } else {
                             Toast.makeText(Members.this, "Member not found.", Toast.LENGTH_SHORT).show();
                         }
                     }
+                    adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
+                    membersList.setAdapter(adapter);
                 }
             }
         });
+    }
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }
