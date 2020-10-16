@@ -42,7 +42,6 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
 
     }
 
-
     @NonNull
     @Override
     public FixturesVH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

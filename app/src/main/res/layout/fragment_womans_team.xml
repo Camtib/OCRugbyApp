@@ -56,7 +56,7 @@
                             android:id="@+id/no1Player"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toStartOf="@+id/no2Player"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -88,7 +88,7 @@
                             android:id="@+id/no2Player"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -120,7 +120,7 @@
                             android:id="@+id/no3Player"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/no2Player"
                             app:layout_constraintTop_toTopOf="@+id/no2Player" />
@@ -153,7 +153,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="25dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="@+id/no2Player"
                             app:layout_constraintStart_toStartOf="@+id/no1Player"
                             app:layout_constraintTop_toBottomOf="@+id/no1Player" />
@@ -186,7 +186,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="25dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="@+id/no3Player"
                             app:layout_constraintStart_toStartOf="@+id/no2Player"
                             app:layout_constraintTop_toBottomOf="@+id/no1Player" />
@@ -220,7 +220,7 @@
                             android:layout_height="40dp"
                             android:layout_marginLeft="-8dp"
                             android:layout_marginTop="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintBottom_toBottomOf="@+id/no8Player"
                             app:layout_constraintStart_toStartOf="@+id/no1Player"
                             app:layout_constraintTop_toTopOf="@+id/no4Player" />
@@ -253,7 +253,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintBottom_toBottomOf="@+id/no8Player"
                             app:layout_constraintEnd_toEndOf="@+id/no3Player"
                             app:layout_constraintTop_toTopOf="@+id/no5Player" />
@@ -286,7 +286,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="@+id/no5Player"
                             app:layout_constraintStart_toStartOf="@+id/no4Player"
                             app:layout_constraintTop_toBottomOf="@+id/no4Player" />
@@ -319,7 +319,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toStartOf="@id/no15Player"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/no8Player" />
@@ -352,7 +352,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toStartOf="@id/no12Player"
                             app:layout_constraintStart_toEndOf="@id/no9Player"
                             app:layout_constraintTop_toBottomOf="@id/no9Player" />
@@ -385,7 +385,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/no10Player" />
@@ -418,7 +418,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toStartOf="@id/no14Player"
                             app:layout_constraintStart_toEndOf="@id/no12Player"
                             app:layout_constraintTop_toBottomOf="@id/no12Player" />
@@ -451,7 +451,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="20dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toEndOf="@id/no15Player"
                             app:layout_constraintTop_toBottomOf="@id/no13Player" />
@@ -483,7 +483,7 @@
                             android:id="@+id/no11Player"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toStartOf="@id/no15Player"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@id/no14Player" />
@@ -516,7 +516,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="50dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@id/no13Player" />
@@ -604,7 +604,7 @@
                             android:id="@+id/player16"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/player17"
                             app:layout_constraintTop_toTopOf="@id/player17" />
@@ -635,7 +635,7 @@
                             android:id="@+id/player17"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -666,7 +666,7 @@
                             android:id="@+id/player18"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintStart_toEndOf="@+id/player17"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/player17"/>
@@ -697,7 +697,7 @@
                             android:id="@+id/player19"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintTop_toTopOf="@id/player20"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/player20"/>
@@ -728,7 +728,7 @@
                             android:id="@+id/player20"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             android:layout_marginTop="30dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -760,7 +760,7 @@
                             android:id="@+id/player21"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintTop_toTopOf="@id/player20"
                             app:layout_constraintStart_toEndOf="@id/player20"
                             app:layout_constraintEnd_toEndOf="parent"/>
@@ -791,7 +791,7 @@
                             android:id="@+id/player22"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintEnd_toStartOf="@id/player23"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="@id/player23" />
@@ -823,7 +823,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="30dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintTop_toBottomOf="@id/player20"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"/>
@@ -854,7 +854,7 @@
                             android:id="@+id/player24"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_baseline_player"
+                            app:srcCompat="@drawable/ic_baseline_player"
                             app:layout_constraintTop_toTopOf="@id/player23"
                             app:layout_constraintStart_toEndOf="@id/player23"
                             app:layout_constraintEnd_toEndOf="parent"/>
