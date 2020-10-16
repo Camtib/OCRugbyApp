@@ -193,12 +193,20 @@ public class Members extends AppCompatActivity {
                             final String name = document.get("Name").toString();
                             final String nickname = document.get("Nickname").toString();
                             userID = document.getId();
-                            if (!nickname.equals("AKA")) {
-                                members.add(new MembersCard(name, nickname, userID));
-                            } else {
-                                members.add(new MembersCard(name, "", userID));
-                            }
 
+                            final StorageReference profileRef = mStorageRef.child("users/" + userID + "/profile.jpg");
+                            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    members.add(new MembersCard(name, nickname, uri));
+                                    adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
+                                    membersList.setAdapter(adapter);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d(TAG, "storage failed");
+                                }
                         } else {
                             Toast.makeText(Members.this, "Member not found.", Toast.LENGTH_SHORT).show();
                         }
