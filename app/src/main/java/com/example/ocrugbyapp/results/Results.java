@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.SectionsPagerAdapter;
@@ -18,14 +19,18 @@ import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
+import com.example.ocrugbyapp.teams.TeamsPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 public class Results extends AppCompatActivity {
 
-    private SectionsPagerAdapter sectionsPagerAdapter;
+    private ResultsPagerAdapter resultsPagerAdapter;
 
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
+
+    private String[] titles = new String[]{"1st XV", "2nd XV", "B XV", "Women's XV"};
 
     private static final String TAG = "Leagues";
 
@@ -86,28 +91,15 @@ public class Results extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Profile.class));
             }
         });
+        
+        resultsPagerAdapter = new ResultsPagerAdapter(this);
 
-        //fragments and tabLayout
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(resultsPagerAdapter);
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        setUpViewPager(mViewPager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        new TabLayoutMediator(tabLayout, mViewPager, (tab, position) -> tab.setText(titles[position])).attach();
 
-        tabLayout.getTabAt(0).setText("1st XV");
-        tabLayout.getTabAt(1).setText("2nd XV");
-        tabLayout.getTabAt(2).setText("B XV");
-        tabLayout.getTabAt(3).setText("Women's XV");
-    }
-
-    private void setUpViewPager(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstsResults());
-        adapter.addFragment(new SecondsResults());
-        adapter.addFragment(new BsResults());
-        adapter.addFragment(new WomensResults());
-        viewPager.setAdapter(adapter);
     }
 }
