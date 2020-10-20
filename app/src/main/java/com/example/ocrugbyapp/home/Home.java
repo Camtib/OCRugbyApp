@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.fixtures.Fixtures;
-import com.example.ocrugbyapp.leagues.Leagues;
+import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
@@ -62,8 +62,8 @@ public class Home extends AppCompatActivity {
                         startActivity(intent2);
                         break;
 
-                    case R.id.leagues:
-                        Intent intent3 = new Intent(Home.this, Leagues.class);
+                    case R.id.results:
+                        Intent intent3 = new Intent(Home.this, Results.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent3);
                         break;

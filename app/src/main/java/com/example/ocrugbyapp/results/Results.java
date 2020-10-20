@@ -1,4 +1,4 @@
-package com.example.ocrugbyapp.leagues;
+package com.example.ocrugbyapp.results;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +21,7 @@ import com.example.ocrugbyapp.teams.Teams;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 
-public class Leagues extends AppCompatActivity {
+public class Results extends AppCompatActivity {
 
     private SectionsPagerAdapter sectionsPagerAdapter;
 
@@ -32,7 +32,7 @@ public class Leagues extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leagues);
+        setContentView(R.layout.activity_results);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
@@ -48,28 +48,28 @@ public class Leagues extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.fixtures:
-                        Intent intent1 = new Intent(Leagues.this, Fixtures.class);
+                        Intent intent1 = new Intent(Results.this, Fixtures.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent1);
                         break;
 
                     case R.id.home:
-                        Intent intent2 = new Intent(Leagues.this, Home.class);
+                        Intent intent2 = new Intent(Results.this, Home.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent2);
                         break;
 
                     case R.id.teams:
-                        Intent intent3 = new Intent(Leagues.this, Teams.class);
+                        Intent intent3 = new Intent(Results.this, Teams.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent3);
                         break;
 
-                    case R.id.leagues:
+                    case R.id.results:
                         break;
 
                     case R.id.members:
-                        Intent intent4 = new Intent(Leagues.this, Members.class);
+                        Intent intent4 = new Intent(Results.this, Members.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent4);
                         break;
@@ -104,10 +104,10 @@ public class Leagues extends AppCompatActivity {
 
     private void setUpViewPager(ViewPager viewPager) {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstsLeague());
-        adapter.addFragment(new SecondsLeague());
-        adapter.addFragment(new BsLeague());
-        adapter.addFragment(new WomensLeague());
+        adapter.addFragment(new FirstsResults());
+        adapter.addFragment(new SecondsResults());
+        adapter.addFragment(new BsResults());
+        adapter.addFragment(new WomensResults());
         viewPager.setAdapter(adapter);
     }
 }

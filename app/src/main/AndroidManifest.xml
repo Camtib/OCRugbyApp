@@ -17,7 +17,7 @@
         <activity android:name=".profile.Profile" />
         <activity android:name=".profile.Register" />
         <activity android:name=".fixtures.Fixtures" />
-        <activity android:name=".leagues.Leagues" />
+        <activity android:name=".results.Results" />
         <activity android:name=".members.Members" />
         <activity android:name=".members.MembersProfile" />
         <activity android:name=".teams.Teams" />

@@ -3,11 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".leagues.FirstsLeague">
-
-    <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/webView1" />
-
-</FrameLayout>
+    tools:context=".results.FirstsResults"/>
