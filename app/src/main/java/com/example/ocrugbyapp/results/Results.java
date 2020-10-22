@@ -91,7 +91,7 @@ public class Results extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Profile.class));
             }
         });
-        
+
         resultsPagerAdapter = new ResultsPagerAdapter(this);
 
         mViewPager = findViewById(R.id.container);
