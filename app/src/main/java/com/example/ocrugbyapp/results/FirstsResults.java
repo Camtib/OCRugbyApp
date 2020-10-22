@@ -21,11 +21,7 @@ public class FirstsResults extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_firsts_results, container, false);
 
-        WebView firstWebView = (WebView) view.findViewById(R.id.webView1);
 
-        WebSettings webSettings = firstWebView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        firstWebView.loadUrl("https://www.englandrugby.com/fixtures-and-results/search-results?team=15615&season=2019-2020#table");
 
         return view;
     }
