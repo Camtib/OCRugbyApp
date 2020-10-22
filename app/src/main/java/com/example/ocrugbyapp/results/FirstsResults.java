@@ -11,11 +11,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class FirstsResults extends Fragment {
 
     RecyclerView recyclerView;
+    FirebaseAuth mAuth;
+    FirebaseFirestore mStore;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,6 +28,9 @@ public class FirstsResults extends Fragment {
         View view = inflater.inflate(R.layout.fragment_firsts_results, container, false);
 
         recyclerView = view.findViewById(R.id.resultsList);
+
+        mAuth = FirebaseAuth.getInstance();
+        mStore = FirebaseFirestore.getInstance();
 
         return view;
     }
