@@ -1,11 +1,11 @@
 package com.example.ocrugbyapp.results;
 
-public class resultsCard {
+public class ResultsCard {
 
     private String date, homeTeam, awayTeam, homeScore, awayScore;
     private int fixtureNum;
 
-    public resultsCard(int fixtureNum, String date, String homeTeam, String awayTeam, String homeScore, String awayScore) {
+    public ResultsCard(int fixtureNum, String date, String homeTeam, String awayTeam, String homeScore, String awayScore) {
         this.fixtureNum = fixtureNum;
         this.date = date;
         this.homeTeam = homeTeam;
