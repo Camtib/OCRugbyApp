@@ -3,23 +3,13 @@ package com.example.ocrugbyapp.results;
 public class ResultsCard {
 
     private String date, homeTeam, awayTeam, homeScore, awayScore;
-    private int fixtureNum;
 
-    public ResultsCard(int fixtureNum, String date, String homeTeam, String awayTeam, String homeScore, String awayScore) {
-        this.fixtureNum = fixtureNum;
+    public ResultsCard(String date, String homeTeam, String awayTeam, String homeScore, String awayScore) {
         this.date = date;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.homeScore = homeScore;
         this.awayScore = awayScore;
-    }
-
-    public int getFixtureNum() {
-        return fixtureNum;
-    }
-
-    public void setFixtureNum(int fixtureNum) {
-        this.fixtureNum = fixtureNum;
     }
 
     public String getDate() {

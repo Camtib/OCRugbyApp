@@ -31,7 +31,7 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
     private Context mContext;
     List<MensFixtureCard> fixturesList;
 
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseAuth mAuth;
     FirebaseFirestore mStore;
     FirebaseUser user;
     String userID;

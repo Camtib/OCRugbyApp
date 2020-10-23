@@ -34,6 +34,8 @@ public class FirstsResults extends Fragment {
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
 
+    ResultsListAdapter resultsListAdapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,18 +52,15 @@ public class FirstsResults extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                 if (task.isSuccessful()) {
-                    List<ResultsCard> fixture = new ArrayList<>();
+                    List<ResultsCard> result = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         if (document != null) {
 
-
-                            final int fixtureNum;
                             final String date;
                             final String homeTeam, awayTeam, homeScore, awayScore;
 
-                            fixtureNum = (int) document.get("fixtureNum");
-                            date = document.get("date").toString();
 
+                            date = document.get("date").toString();
 
                             if (!document.get("firstsHA").toString().equals("")) {
 
@@ -82,7 +81,7 @@ public class FirstsResults extends Fragment {
                                         awayScore = document.get("firstsOppScore").toString();
                                     }
 
-                                    fixture.add(new ResultsCard(fixtureNum, date, homeTeam, awayTeam, homeScore, awayScore));
+                                    result.add(new ResultsCard(date, homeTeam, awayTeam, homeScore, awayScore));
 
                                 }else if (document.get("firstsHA").equals("A")) {
 
@@ -101,11 +100,14 @@ public class FirstsResults extends Fragment {
                                         homeScore = document.get("firstsOppScore").toString();
                                     }
 
-                                    fixture.add(new ResultsCard(fixtureNum, date, homeTeam, awayTeam, homeScore, awayScore));
+                                    result.add(new ResultsCard(date, homeTeam, awayTeam, homeScore, awayScore));
                                 }
                             }
                         }
                     }
+                    resultsListAdapter = new ResultsListAdapter(view.getContext(), result);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
+                    recyclerView.setAdapter(resultsListAdapter);
                 }
             }
         });

@@ -12,13 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/ocTV"
-        app:layout_constraintStart_toStartOf="@+id/ocTV"
+        app:layout_constraintBottom_toTopOf="@+id/homeTeamTV"
+        app:layout_constraintStart_toStartOf="@+id/homeTeamTV"
         app:layout_constraintTop_toTopOf="parent"
         android:padding="5dp"/>
 
     <TextView
-        android:id="@+id/ocTV"
+        android:id="@+id/homeTeamTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -33,7 +33,7 @@
         android:padding="5dp"/>
 
     <TextView
-        android:id="@+id/oppositionTV"
+        android:id="@+id/awayTeamTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
@@ -41,30 +41,30 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ocTV"
-        app:layout_constraintTop_toBottomOf="@+id/ocTV"
+        app:layout_constraintStart_toStartOf="@+id/homeTeamTV"
+        app:layout_constraintTop_toBottomOf="@+id/homeTeamTV"
         android:padding="5dp"/>
 
     <TextView
-        android:id="@+id/ocScore"
+        android:id="@+id/homeScoreTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/ocTV"
+        app:layout_constraintBottom_toBottomOf="@+id/homeTeamTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ocTV" />
+        app:layout_constraintTop_toTopOf="@+id/homeTeamTV" />
 
     <TextView
-        android:id="@+id/vsScore"
+        android:id="@+id/awayScoreTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/oppositionTV"
+        app:layout_constraintBottom_toBottomOf="@+id/awayTeamTV"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ocTV" />
+        app:layout_constraintTop_toBottomOf="@+id/homeTeamTV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
