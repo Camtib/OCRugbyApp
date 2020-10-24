@@ -45,7 +45,7 @@ public class WomensTeam extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_womans_team, container, false);
+        View view = inflater.inflate(R.layout.fragment_team, container, false);
 
         no1playerName = view.findViewById(R.id.no1playerName);
         no2playerName = view.findViewById(R.id.no2playerName);
@@ -63,7 +63,7 @@ public class WomensTeam extends Fragment {
         no14playerName = view.findViewById(R.id.no14playerName);
         no15playerName = view.findViewById(R.id.no15playerName);
 
-        sub1name = view.findViewById(R.id.player16Name);
+        sub1name = view.findViewById(R.id.sub1name);
         sub2name = view.findViewById(R.id.player17Name);
         sub3name = view.findViewById(R.id.player18Name);
         sub4name = view.findViewById(R.id.player19Name);
