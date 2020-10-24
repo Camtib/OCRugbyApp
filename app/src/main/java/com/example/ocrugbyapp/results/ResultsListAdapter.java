@@ -1,18 +1,24 @@
 package com.example.ocrugbyapp.results;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.List;
 
@@ -70,6 +76,32 @@ public class ResultsListAdapter extends RecyclerView.Adapter<ResultsListAdapter.
             awayTeam = itemView.findViewById(R.id.awayTeamTV);
             homeScore = itemView.findViewById(R.id.homeScoreTV);
             awayScore = itemView.findViewById(R.id.awayScoreTV);
+
+            mAuth = FirebaseAuth.getInstance();
+            mStore = FirebaseFirestore.getInstance();
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            userID = user.getUid();
+
+            DocumentReference documentReference = mStore.collection("users").document(userID);
+
+            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if (documentSnapshot.get("Admin").equals(true)) {
+                        itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(mContext, SetResult.class);
+                                String resultDate = date.getText().toString();
+                                intent.putExtra("Date", resultDate);
+                                itemView.getContext().startActivity(intent);
+                            }
+                        });
+                    }else {
+                        itemView.setClickable(false);
+                    }
+                }
+            });
         }
     }
 }
