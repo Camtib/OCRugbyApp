@@ -2,14 +2,23 @@ package com.example.ocrugbyapp.results;
 
 public class ResultsCard {
 
-    private String date, homeTeam, awayTeam, homeScore, awayScore;
+    private String team, date, homeTeam, awayTeam, homeScore, awayScore;
 
-    public ResultsCard(String date, String homeTeam, String awayTeam, String homeScore, String awayScore) {
+    public ResultsCard(String team, String date, String homeTeam, String awayTeam, String homeScore, String awayScore) {
+        this.team = team;
         this.date = date;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.homeScore = homeScore;
         this.awayScore = awayScore;
+    }
+
+    public String getTeam() {
+        return team;
+    }
+
+    public void setTeam(String team) {
+        this.team = team;
     }
 
     public String getDate() {

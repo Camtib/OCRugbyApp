@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.fixtures.MensFixtureCard;
-import com.example.ocrugbyapp.fixtures.MensFixturesListAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,12 +18,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 
 public class FirstsResults extends Fragment {
@@ -37,10 +31,80 @@ public class FirstsResults extends Fragment {
     ResultsListAdapter resultsListAdapter;
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        mStore.collection("ocrfcFixtures").orderBy("fixtureNum").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if (task.isSuccessful()) {
+                    List<ResultsCard> result = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document != null) {
+
+                            final String date;
+                            final String homeTeam, awayTeam, homeScore, awayScore;
+
+
+                            date = document.get("date").toString();
+
+                            if (!document.get("firstsHA").toString().equals("")) {
+
+                                if (document.get("firstsHA").equals("H")) {
+
+                                    homeTeam = "Old Cranleighans";
+                                    awayTeam = document.get("firstsOpponent").toString();
+
+                                    if (document.get("firstsScore").toString().isEmpty()) {
+                                        homeScore = "no score yet";
+                                    }else {
+                                        homeScore = document.get("firstsScore").toString();
+                                    }
+
+                                    if (document.get("firstsOppScore").toString().isEmpty()) {
+                                        awayScore = "";
+                                    }else {
+                                        awayScore = document.get("firstsOppScore").toString();
+                                    }
+
+                                    result.add(new ResultsCard("1st XV", date, homeTeam, awayTeam, homeScore, awayScore));
+
+                                }else if (document.get("firstsHA").equals("A")) {
+
+                                    awayTeam = "Old Cranleighans";
+                                    homeTeam = document.get("firstsOpponent").toString();
+
+                                    if (document.get("firstsScore").toString().isEmpty()) {
+                                        awayScore = "";
+                                    } else {
+                                        awayScore = document.get("firstsScore").toString();
+                                    }
+
+                                    if (document.get("firstsOppScore").toString().isEmpty()) {
+                                        homeScore = "no score yet";
+                                    } else {
+                                        homeScore = document.get("firstsOppScore").toString();
+                                    }
+
+                                    result.add(new ResultsCard("1st XV", date, homeTeam, awayTeam, homeScore, awayScore));
+                                }
+                            }
+                        }
+                    }
+                    resultsListAdapter = new ResultsListAdapter(getContext(), result);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                    recyclerView.setAdapter(resultsListAdapter);
+                }
+            }
+        });
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_firsts_results, container, false);
+        View view = inflater.inflate(R.layout.fragment_results, container, false);
 
         recyclerView = view.findViewById(R.id.resultsList);
 
@@ -76,12 +140,12 @@ public class FirstsResults extends Fragment {
                                     }
 
                                     if (document.get("firstsOppScore").toString().isEmpty()) {
-                                        awayScore = "-";
+                                        awayScore = "";
                                     }else {
                                         awayScore = document.get("firstsOppScore").toString();
                                     }
 
-                                    result.add(new ResultsCard(date, homeTeam, awayTeam, homeScore, awayScore));
+                                    result.add(new ResultsCard("1st XV", date, homeTeam, awayTeam, homeScore, awayScore));
 
                                 }else if (document.get("firstsHA").equals("A")) {
 
@@ -89,7 +153,7 @@ public class FirstsResults extends Fragment {
                                     homeTeam = document.get("firstsOpponent").toString();
 
                                     if (document.get("firstsScore").toString().isEmpty()) {
-                                        awayScore = "-";
+                                        awayScore = "";
                                     } else {
                                         awayScore = document.get("firstsScore").toString();
                                     }
@@ -100,7 +164,7 @@ public class FirstsResults extends Fragment {
                                         homeScore = document.get("firstsOppScore").toString();
                                     }
 
-                                    result.add(new ResultsCard(date, homeTeam, awayTeam, homeScore, awayScore));
+                                    result.add(new ResultsCard("1st XV", date, homeTeam, awayTeam, homeScore, awayScore));
                                 }
                             }
                         }

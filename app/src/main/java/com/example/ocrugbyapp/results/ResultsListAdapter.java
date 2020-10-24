@@ -50,12 +50,36 @@ public class ResultsListAdapter extends RecyclerView.Adapter<ResultsListAdapter.
     public void onBindViewHolder(@NonNull ResultsListAdapter.ResultsVH holder, int position) {
 
         ResultsCard resultsCard = resultsList.get(position);
+        String team = resultsCard.getTeam();
+        String resultDate = resultsCard.getDate();
+        String title = team + " Result";
 
         holder.date.setText(resultsCard.getDate());
         holder.homeTeam.setText(resultsCard.getHomeTeam());
         holder.awayTeam.setText(resultsCard.getAwayTeam());
         holder.homeScore.setText(resultsCard.getHomeScore());
         holder.awayScore.setText(resultsCard.getAwayScore());
+
+        DocumentReference documentReference = mStore.collection("users").document(userID);
+
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                if (documentSnapshot.get("Admin").equals(true)) {
+                    holder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(mContext, SetResult.class);
+                            intent.putExtra("Date", resultDate);
+                            intent.putExtra("Team", title);
+                            holder.itemView.getContext().startActivity(intent);
+                        }
+                    });
+                }else {
+                    holder.itemView.setClickable(false);
+                }
+            }
+        });
 
     }
 
@@ -66,7 +90,7 @@ public class ResultsListAdapter extends RecyclerView.Adapter<ResultsListAdapter.
 
     public class ResultsVH extends RecyclerView.ViewHolder {
 
-        TextView date, homeTeam, awayTeam, homeScore, awayScore;
+        TextView date, homeTeam, awayTeam, homeScore, awayScore, scoreTV;
 
         public ResultsVH(@NonNull View itemView) {
             super(itemView);
@@ -81,27 +105,6 @@ public class ResultsListAdapter extends RecyclerView.Adapter<ResultsListAdapter.
             mStore = FirebaseFirestore.getInstance();
             user = FirebaseAuth.getInstance().getCurrentUser();
             userID = user.getUid();
-
-            DocumentReference documentReference = mStore.collection("users").document(userID);
-
-            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    if (documentSnapshot.get("Admin").equals(true)) {
-                        itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Intent intent = new Intent(mContext, SetResult.class);
-                                String resultDate = date.getText().toString();
-                                intent.putExtra("Date", resultDate);
-                                itemView.getContext().startActivity(intent);
-                            }
-                        });
-                    }else {
-                        itemView.setClickable(false);
-                    }
-                }
-            });
         }
     }
 }
