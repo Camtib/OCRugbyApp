@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -29,6 +30,7 @@ public class FirstsResults extends Fragment {
     FirebaseFirestore mStore;
 
     ResultsListAdapter resultsListAdapter;
+    TextView noFixtures;
 
     @Override
     public void onResume() {
@@ -107,9 +109,12 @@ public class FirstsResults extends Fragment {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
 
         recyclerView = view.findViewById(R.id.resultsList);
+        noFixtures = view.findViewById(R.id.noFixturesTV);
 
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
+
+        noFixtures.setVisibility(View.GONE);
 
         mStore.collection("ocrfcFixtures").orderBy("fixtureNum").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -126,7 +131,7 @@ public class FirstsResults extends Fragment {
 
                             date = document.get("date").toString();
 
-                            if (!document.get("firstsHA").toString().equals("")) {
+                            if (!document.get("firstsOpponent").toString().equals("")) {
 
                                 if (document.get("firstsHA").equals("H")) {
 
@@ -166,6 +171,8 @@ public class FirstsResults extends Fragment {
 
                                     result.add(new ResultsCard("1st XV", date, homeTeam, awayTeam, homeScore, awayScore));
                                 }
+                            }else {
+                                noFixtures.setVisibility(View.VISIBLE);
                             }
                         }
                     }

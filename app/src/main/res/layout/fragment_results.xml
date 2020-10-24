@@ -9,4 +9,15 @@
         android:id="@+id/resultsList"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/noFixturesTV"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/no_fixtures_yet"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:gravity="center" />
 </FrameLayout>
