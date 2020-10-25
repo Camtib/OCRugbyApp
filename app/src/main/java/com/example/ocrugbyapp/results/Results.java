@@ -17,12 +17,15 @@ import com.example.ocrugbyapp.SectionsPagerAdapter;
 import com.example.ocrugbyapp.fixtures.Fixtures;
 import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.members.Members;
+import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
 import com.example.ocrugbyapp.teams.TeamsPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Results extends AppCompatActivity {
 
@@ -30,9 +33,27 @@ public class Results extends AppCompatActivity {
 
     private ViewPager2 mViewPager;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
     private String[] titles = new String[]{"1st XV", "2nd XV", "B XV", "Women's XV"};
 
     private static final String TAG = "Leagues";
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mAuth = FirebaseAuth.getInstance();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(Results.this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

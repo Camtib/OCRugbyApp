@@ -14,12 +14,15 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.SectionsPagerAdapter;
 import com.example.ocrugbyapp.home.Home;
+import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Fixtures extends AppCompatActivity {
 
@@ -29,7 +32,25 @@ public class Fixtures extends AppCompatActivity {
 
     private ViewPager mViewPager;
 
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+
     ImageView profileBtn;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mAuth = FirebaseAuth.getInstance();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(Fixtures.this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +63,16 @@ public class Fixtures extends AppCompatActivity {
         menuItem.setChecked(true);
 
         profileBtn = (ImageView) findViewById(R.id.btnProfile);
+
+        mAuth = FirebaseAuth.getInstance();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Intent intent = new Intent(Fixtures.this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+        }
 
         //allowing items in nav bar to be clicked and change activity
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

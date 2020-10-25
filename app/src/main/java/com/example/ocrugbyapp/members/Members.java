@@ -24,6 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.fixtures.Fixtures;
 import com.example.ocrugbyapp.home.Home;
+import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
@@ -58,6 +59,21 @@ public class Members extends AppCompatActivity {
     Query searchQuery;
     MembersListAdapter adapter;
     List<MembersCard> members;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        mAuth = FirebaseAuth.getInstance();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        user = mAuth.getCurrentUser();
+        if (user == null) {
+            Intent intent = new Intent(Members.this, Login.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(intent);
+            finish();
+        }
+    }
 
 
     @Override

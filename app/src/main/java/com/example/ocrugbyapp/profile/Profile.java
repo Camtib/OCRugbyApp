@@ -47,9 +47,10 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() == null) {
-            finish();
             startActivity(new Intent(this, Login.class));
+            finish();
         }
     }
 
@@ -79,11 +80,6 @@ public class Profile extends AppCompatActivity {
 
         mStore = FirebaseFirestore.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
-
-
-        userID = mAuth.getCurrentUser().getUid();
-
-
 
 
         StorageReference profileRef = mStorageRef.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
@@ -136,6 +132,7 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        userID = mAuth.getCurrentUser().getUid();
 
         //user info storage
         DocumentReference documentReference = mStore.collection("users").document(userID);
