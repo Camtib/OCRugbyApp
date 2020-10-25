@@ -299,6 +299,25 @@
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:id="@+id/relLayout18"
+                android:layout_marginTop="30dp"
+                android:layout_below="@id/relLayout17"
+                android:layout_centerHorizontal="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/step_down_as_admin"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/removeAdmin" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
     </ScrollView>
 

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocrugbyapp.R;
@@ -24,7 +25,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +39,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     EditText nickname;
     EditText email;
     EditText mobile_number;
-    TextView logoutBtn, deleteBtn;
+    TextView logoutBtn, deleteBtn, adminBtn;
     TextView changeProfileBtn;
     String userID;
     Spinner preferredPosition, secondPosition, thirdPosition;
@@ -61,6 +65,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         changeProfileBtn = findViewById(R.id.changeProfileBtn);
         deleteBtn = findViewById(R.id.deleteAccount);
         mStore = FirebaseFirestore.getInstance();
+        adminBtn = findViewById(R.id.removeAdmin);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         userID = user.getUid();
@@ -175,6 +180,30 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
                 Intent intent = new Intent(Settings.this, Login.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        DocumentReference documentReference = mStore.collection("users").document(userID);
+        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (value.get("Admin").equals(true)) {
+                    adminBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            documentReference.update("Admin", false).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    Toast.makeText(Settings.this, "You are no longer an admin", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            });
+                        }
+                    });
+                }else {
+                    adminBtn.setVisibility(View.GONE);
+                    adminBtn.setClickable(false);
+                }
             }
         });
 

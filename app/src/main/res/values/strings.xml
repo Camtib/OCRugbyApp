@@ -76,6 +76,7 @@
     <string name="bXVFinishers">B XV Finishers</string>
     <string name="results">Results</string>
     <string name="no_fixtures_yet">No Fixtures Yet</string>
+    <string name="step_down_as_admin">Step Down As Admin</string>
 
 
     <string-array name="positions">
