@@ -1,48 +1,31 @@
 package com.example.ocrugbyapp.members;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.profile.Login;
-import com.example.ocrugbyapp.profile.Settings;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.lang.reflect.Member;
-
-import javax.annotation.Nullable;
 
 public class MembersProfile extends AppCompatActivity {
 
@@ -50,7 +33,7 @@ public class MembersProfile extends AppCompatActivity {
     TextView name, nickname, email, mobile_number, preferred_position, secondPosition, thirdPosition;
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
-    ImageView profilePic, homeBtn, backBtn;
+    ImageView profilePic, backBtn;
     StorageReference mStorageRef;
     ProgressBar progressBar;
 
@@ -78,7 +61,6 @@ public class MembersProfile extends AppCompatActivity {
         secondPosition = findViewById(R.id.secondPosition);
         thirdPosition = findViewById(R.id.thirdPosition);
         profilePic = findViewById(R.id.profilePic);
-        homeBtn = findViewById(R.id.homeBtn);
         backBtn = findViewById(R.id.backBtn);
         progressBar = findViewById(R.id.progressBar);
 
@@ -131,15 +113,6 @@ public class MembersProfile extends AppCompatActivity {
                         }
                     }
                 });
-
-
-
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
-            }
-        });
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override

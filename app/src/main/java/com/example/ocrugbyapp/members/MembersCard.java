@@ -1,7 +1,5 @@
 package com.example.ocrugbyapp.members;
 
-import android.net.Uri;
-
 public class MembersCard {
 
     private String name;

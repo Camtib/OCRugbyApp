@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.home.Home;
+import com.example.ocrugbyapp.fixtures.Fixtures;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -38,7 +37,6 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
     EditText mobile_number;
     TextView logoutBtn, deleteBtn;
     TextView changeProfileBtn;
-    ImageView homeBtn;
     String userID;
     Spinner preferredPosition, secondPosition, thirdPosition;
 
@@ -55,14 +53,13 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        name = (EditText) findViewById(R.id.editFistName);
-        nickname = (EditText) findViewById(R.id.editNickname);
-        email = (EditText) findViewById(R.id.editEmail);
-        mobile_number = (EditText) findViewById(R.id.editMobileNumber);
-        logoutBtn = (TextView) findViewById(R.id.logoutBtn);
-        changeProfileBtn = (TextView) findViewById(R.id.changeProfileBtn);
-        deleteBtn = (TextView) findViewById(R.id.deleteAccount);
-        homeBtn = (ImageView) findViewById(R.id.homeBtn);
+        name = findViewById(R.id.editFistName);
+        nickname = findViewById(R.id.editNickname);
+        email = findViewById(R.id.editEmail);
+        mobile_number = findViewById(R.id.editMobileNumber);
+        logoutBtn = findViewById(R.id.logoutBtn);
+        changeProfileBtn = findViewById(R.id.changeProfileBtn);
+        deleteBtn = findViewById(R.id.deleteAccount);
         mStore = FirebaseFirestore.getInstance();
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -82,7 +79,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         Log.d(TAG, "onCreate: "+ fullName + " " + fullNickname + " " + fullEmail  + " " + fullMobile_Number);
 
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
@@ -93,9 +90,9 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
         mobile_number.setText(fullMobile_Number);
 
 
-        preferredPosition = (Spinner) findViewById(R.id.PreferredPosition);
-        secondPosition = (Spinner) findViewById(R.id.SecondPosition);
-        thirdPosition = (Spinner) findViewById(R.id.ThirdPosition);
+        preferredPosition = findViewById(R.id.PreferredPosition);
+        secondPosition = findViewById(R.id.SecondPosition);
+        thirdPosition = findViewById(R.id.ThirdPosition);
 
 
 
@@ -141,9 +138,10 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
                 switch (item.getItemId()) {
 
                     case R.id.backArrow:
-                        Intent intent1 = new Intent(Settings.this, Home.class);
+                        Intent intent1 = new Intent(Settings.this, Fixtures.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent1);
+                        finish();
                         break;
 
                     case R.id.profile:
@@ -158,14 +156,6 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
                 }
 
                 return false;
-            }
-        });
-
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Settings.this, Home.class);
-                startActivity(intent);
             }
         });
 

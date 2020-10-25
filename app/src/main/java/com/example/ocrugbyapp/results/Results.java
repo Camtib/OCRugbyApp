@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.fixtures.Fixtures;
-import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.profile.Profile;
@@ -59,10 +58,10 @@ public class Results extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(3);
+        MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
-        ImageView profileBtn = (ImageView) findViewById(R.id.btnProfile);
+        ImageView profileBtn = findViewById(R.id.btnProfile);
 
         //allowing items in nav bar to be clicked and change activity
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -74,12 +73,6 @@ public class Results extends AppCompatActivity {
                         Intent intent1 = new Intent(Results.this, Fixtures.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent1);
-                        break;
-
-                    case R.id.home:
-                        Intent intent2 = new Intent(Results.this, Home.class);
-                        intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent2);
                         break;
 
                     case R.id.teams:

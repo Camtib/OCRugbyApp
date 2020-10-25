@@ -10,11 +10,6 @@
         android:icon="@drawable/ic_group"
         android:title="@string/teams" />
     <item
-        android:id="@+id/home"
-        android:icon="@drawable/ic_remove_red_eye"
-        android:title="@string/ocrfc" />
-
-    <item
         android:id="@+id/results"
         android:icon="@drawable/ic_baseline_format_list_numbered_24"
         android:title ="@string/results" />

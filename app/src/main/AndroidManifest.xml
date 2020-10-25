@@ -28,7 +28,6 @@
         <activity android:name=".members.Members" />
         <activity android:name=".members.MembersProfile" />
         <activity android:name=".teams.Teams" />
-        <activity android:name=".home.Home" />
         <activity android:name=".profile.Login" />
     </application>
 

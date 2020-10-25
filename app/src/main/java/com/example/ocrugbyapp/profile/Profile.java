@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.home.Home;
+import com.example.ocrugbyapp.fixtures.Fixtures;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -42,7 +42,7 @@ public class Profile extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
     String userID;
-    ImageView profilePic, homeBtn;
+    ImageView profilePic;
     StorageReference mStorageRef;
     ProgressBar progressBar;
 
@@ -55,8 +55,6 @@ public class Profile extends AppCompatActivity {
             finish();
         }
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,6 @@ public class Profile extends AppCompatActivity {
         secondPosition = findViewById(R.id.secondPosition);
         thirdPosition = findViewById(R.id.thirdPosition);
         profilePic = findViewById(R.id.profilePic);
-        homeBtn = findViewById(R.id.homeBtn);
         progressBar = findViewById(R.id.progressBar);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
@@ -98,9 +95,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
-
-
         //allowing items in nav bar to be clicked and change activity
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -108,9 +102,9 @@ public class Profile extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.backArrow:
-                        Intent intent1 = new Intent(Profile.this, Home.class);
-                        intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent1);
+                        Intent intent = new Intent(Profile.this, Fixtures.class);
+                        startActivity(intent);
+                        finish();
                         break;
 
                     case R.id.profile:
@@ -156,15 +150,6 @@ public class Profile extends AppCompatActivity {
                 }
             }
         });
-
-
-        homeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Home.class));
-            }
-        });
-
 
         profilePic.setOnClickListener(new View.OnClickListener() {
             @Override

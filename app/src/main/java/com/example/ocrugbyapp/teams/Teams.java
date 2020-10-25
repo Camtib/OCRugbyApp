@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.fixtures.Fixtures;
-import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.members.Members;
@@ -80,12 +79,6 @@ public class Teams extends AppCompatActivity {
                         Intent intent1 = new Intent(Teams.this, Fixtures.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent1);
-                        break;
-
-                    case R.id.home:
-                        Intent intent2 = new Intent(Teams.this, Home.class);
-                        intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent2);
                         break;
 
                     case R.id.teams:

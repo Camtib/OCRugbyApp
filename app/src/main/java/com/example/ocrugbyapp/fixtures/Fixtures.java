@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.members.Members;
@@ -95,12 +94,6 @@ public class Fixtures extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.fixtures:
-                        break;
-
-                    case R.id.home:
-                        Intent intent1 = new Intent(Fixtures.this, Home.class);
-                        intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent1);
                         break;
 
                     case R.id.teams:

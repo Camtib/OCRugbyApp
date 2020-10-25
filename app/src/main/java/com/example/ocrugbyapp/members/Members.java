@@ -2,11 +2,9 @@ package com.example.ocrugbyapp.members;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,14 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.fixtures.Fixtures;
-import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -87,8 +82,8 @@ public class Members extends AppCompatActivity {
         mStore = FirebaseFirestore.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
         user = mAuth.getCurrentUser();
-        membersList = (ListView) findViewById(R.id.contactsListView);
-        search = (EditText) findViewById(R.id.editTextSearch);
+        membersList = findViewById(R.id.contactsListView);
+        search = findViewById(R.id.editTextSearch);
         searchQuery = mStore.collection("users").orderBy("Name");
         members = new ArrayList<>();
         adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
@@ -132,7 +127,7 @@ public class Members extends AppCompatActivity {
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(4);
+        MenuItem menuItem = menu.getItem(3);
         menuItem.setChecked(true);
 
         ImageView profileBtn = (ImageView) findViewById(R.id.btnProfile);
@@ -147,12 +142,6 @@ public class Members extends AppCompatActivity {
                         Intent intent0 = new Intent(Members.this, Fixtures.class);
                         intent0.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent0);
-                        break;
-
-                    case R.id.home:
-                        Intent intent1 = new Intent(Members.this, Home.class);
-                        intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent1);
                         break;
 
                     case R.id.teams:
