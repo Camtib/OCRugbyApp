@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ public class FirstTeam extends Fragment {
             no23player, no24player;
 
     Button confirmTeamBtn, confirmSubsBtn;
+    ProgressBar progressBar;
 
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
@@ -100,6 +102,8 @@ public class FirstTeam extends Fragment {
 
         confirmTeamBtn = view.findViewById(R.id.confirmSelectionBtn);
         confirmSubsBtn = view.findViewById(R.id.confirmSubSelectionBtn);
+
+        progressBar = view.findViewById(R.id.progressBar);
 
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
@@ -208,6 +212,7 @@ public class FirstTeam extends Fragment {
                 String playerID = documentSnapshot.getString(field);
                 if (playerID.isEmpty()) {
                     textView.setText(positionName);
+                    progressBar.setVisibility(View.GONE);
                 }else {
                     DocumentReference docRef = mStore.collection("users").document(playerID);
                     docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -215,8 +220,10 @@ public class FirstTeam extends Fragment {
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             if (documentSnapshot.getString("Nickname").isEmpty()) {
                                 textView.setText(documentSnapshot.getString("Name"));
+                                progressBar.setVisibility(View.GONE);
                             }else {
                                 textView.setText(documentSnapshot.getString("Nickname"));
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     });
@@ -233,6 +240,7 @@ public class FirstTeam extends Fragment {
                 String playerID = documentSnapshot.getString(field);
                 if (playerID.isEmpty()) {
                     textView.setText(getString(R.string.selectPlayer));
+                    progressBar.setVisibility(View.GONE);
                 }else {
                     DocumentReference docRef = mStore.collection("users").document(playerID);
                     docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
@@ -240,8 +248,10 @@ public class FirstTeam extends Fragment {
                         public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                             if (documentSnapshot.getString("Nickname").isEmpty()) {
                                 textView.setText(documentSnapshot.getString("Name"));
+                                progressBar.setVisibility(View.GONE);
                             }else {
                                 textView.setText(documentSnapshot.getString("Nickname"));
+                                progressBar.setVisibility(View.GONE);
                             }
                         }
                     });
