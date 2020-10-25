@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class MembersProfile extends AppCompatActivity {
     FirebaseFirestore mStore;
     ImageView profilePic, homeBtn, backBtn;
     StorageReference mStorageRef;
+    ProgressBar progressBar;
 
     @Override
     protected void onStart() {
@@ -78,6 +80,7 @@ public class MembersProfile extends AppCompatActivity {
         profilePic = findViewById(R.id.profilePic);
         homeBtn = findViewById(R.id.homeBtn);
         backBtn = findViewById(R.id.backBtn);
+        progressBar = findViewById(R.id.progressBar);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -122,6 +125,7 @@ public class MembersProfile extends AppCompatActivity {
                                 }
 
                             }
+                            progressBar.setVisibility(View.GONE);
                         }else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }
