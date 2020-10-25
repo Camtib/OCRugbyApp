@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +46,7 @@ public class Fixtures extends AppCompatActivity {
     FirebaseFirestore mStore;
     MensFixturesListAdapter mensFixturesListAdapter;
     Date fixtureDate;
+    ProgressBar progressBar;
 
     ImageView profileBtn;
 
@@ -74,6 +76,7 @@ public class Fixtures extends AppCompatActivity {
         menuItem.setChecked(true);
 
         profileBtn = findViewById(R.id.btnProfile);
+        progressBar = findViewById(R.id.progressBar);
 
         mAuth = FirebaseAuth.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
@@ -283,6 +286,7 @@ public class Fixtures extends AppCompatActivity {
                     mensFixturesListAdapter = new MensFixturesListAdapter(Fixtures.this, fixture);
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(Fixtures.this));
                     mRecyclerView.setAdapter(mensFixturesListAdapter);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
