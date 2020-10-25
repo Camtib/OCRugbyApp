@@ -31,9 +31,6 @@ public class TeamsPagerAdapter extends FragmentStateAdapter {
             case 2: {
                 return new BTeam();
             }
-            case 3: {
-                return new WomensTeam();
-            }
             default:
                 return new FirstTeam();
         }
@@ -41,6 +38,6 @@ public class TeamsPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 3;
     }
 }

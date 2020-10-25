@@ -26,9 +26,6 @@ public class ResultsPagerAdapter extends FragmentStateAdapter {
             case 2: {
                 return new BsResults();
             }
-            case 3: {
-                return new WomensResults();
-            }
             default:
                 return new FirstsResults();
         }
@@ -36,6 +33,6 @@ public class ResultsPagerAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 4;
+        return 3;
     }
 }
