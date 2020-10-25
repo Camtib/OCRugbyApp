@@ -174,6 +174,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             public void onClick(View v) {
                 Intent intent = new Intent(Settings.this, DeleteAccount.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -183,6 +184,7 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
                 mAuth.signOut();
                 Intent intent = new Intent(Settings.this, Login.class);
                 startActivity(intent);
+                finish();
             }
         });
 
