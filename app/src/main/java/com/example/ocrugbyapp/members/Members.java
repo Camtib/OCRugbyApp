@@ -23,10 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.fixtures.Fixtures;
-import com.example.ocrugbyapp.fixtures.MensFixtureCard;
-import com.example.ocrugbyapp.fixtures.MensFixturesListAdapter;
 import com.example.ocrugbyapp.home.Home;
-import com.example.ocrugbyapp.leagues.Leagues;
+import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,14 +34,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -146,8 +142,8 @@ public class Members extends AppCompatActivity {
                         startActivity(intent2);
                         break;
 
-                    case R.id.leagues:
-                        Intent intent3 = new Intent(Members.this, Leagues.class);
+                    case R.id.results:
+                        Intent intent3 = new Intent(Members.this, Results.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent3);
                         break;
@@ -194,23 +190,12 @@ public class Members extends AppCompatActivity {
                             final String nickname = document.get("Nickname").toString();
                             userID = document.getId();
 
-                            final StorageReference profileRef = mStorageRef.child("users/" + userID + "/profile.jpg");
-                            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    members.add(new MembersCard(name, nickname, uri));
-                                    adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
-                                    membersList.setAdapter(adapter);
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.d(TAG, "storage failed");
-                                }
+                            members.add(new MembersCard(name, nickname, userID));
                         } else {
                             Toast.makeText(Members.this, "Member not found.", Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
                     membersList.setAdapter(adapter);
                 }

@@ -1,4 +1,4 @@
-package com.example.ocrugbyapp.leagues;
+package com.example.ocrugbyapp.results;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ocrugbyapp.R;
 import com.example.ocrugbyapp.SectionsPagerAdapter;
@@ -18,21 +19,25 @@ import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
+import com.example.ocrugbyapp.teams.TeamsPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
-public class Leagues extends AppCompatActivity {
+public class Results extends AppCompatActivity {
 
-    private SectionsPagerAdapter sectionsPagerAdapter;
+    private ResultsPagerAdapter resultsPagerAdapter;
 
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
+
+    private String[] titles = new String[]{"1st XV", "2nd XV", "B XV", "Women's XV"};
 
     private static final String TAG = "Leagues";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_leagues);
+        setContentView(R.layout.activity_results);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
@@ -48,28 +53,28 @@ public class Leagues extends AppCompatActivity {
                 switch (item.getItemId()) {
 
                     case R.id.fixtures:
-                        Intent intent1 = new Intent(Leagues.this, Fixtures.class);
+                        Intent intent1 = new Intent(Results.this, Fixtures.class);
                         intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent1);
                         break;
 
                     case R.id.home:
-                        Intent intent2 = new Intent(Leagues.this, Home.class);
+                        Intent intent2 = new Intent(Results.this, Home.class);
                         intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent2);
                         break;
 
                     case R.id.teams:
-                        Intent intent3 = new Intent(Leagues.this, Teams.class);
+                        Intent intent3 = new Intent(Results.this, Teams.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent3);
                         break;
 
-                    case R.id.leagues:
+                    case R.id.results:
                         break;
 
                     case R.id.members:
-                        Intent intent4 = new Intent(Leagues.this, Members.class);
+                        Intent intent4 = new Intent(Results.this, Members.class);
                         intent4.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent4);
                         break;
@@ -87,27 +92,14 @@ public class Leagues extends AppCompatActivity {
             }
         });
 
-        //fragments and tabLayout
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        resultsPagerAdapter = new ResultsPagerAdapter(this);
 
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        setUpViewPager(mViewPager);
+        mViewPager = findViewById(R.id.container);
+        mViewPager.setAdapter(resultsPagerAdapter);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        TabLayout tabLayout = findViewById(R.id.tabs);
 
-        tabLayout.getTabAt(0).setText("1st XV");
-        tabLayout.getTabAt(1).setText("2nd XV");
-        tabLayout.getTabAt(2).setText("B XV");
-        tabLayout.getTabAt(3).setText("Women's XV");
-    }
+        new TabLayoutMediator(tabLayout, mViewPager, (tab, position) -> tab.setText(titles[position])).attach();
 
-    private void setUpViewPager(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FirstsLeague());
-        adapter.addFragment(new SecondsLeague());
-        adapter.addFragment(new BsLeague());
-        adapter.addFragment(new WomensLeague());
-        viewPager.setAdapter(adapter);
     }
 }

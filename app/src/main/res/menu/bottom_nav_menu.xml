@@ -15,9 +15,9 @@
         android:title="@string/ocrfc" />
 
     <item
-        android:id="@+id/leagues"
+        android:id="@+id/results"
         android:icon="@drawable/ic_baseline_format_list_numbered_24"
-        android:title ="@string/leagues" />
+        android:title ="@string/results" />
     <item
         android:id="@+id/members"
         android:icon="@drawable/ic_baseline_perm_contact_calendar_24"

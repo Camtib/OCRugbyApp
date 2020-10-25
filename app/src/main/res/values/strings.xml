@@ -74,6 +74,8 @@
 
     <string name="bXVStarters">B XV Starting Team</string>
     <string name="bXVFinishers">B XV Finishers</string>
+    <string name="results">Results</string>
+    <string name="no_fixtures_yet">No Fixtures Yet</string>
 
 
     <string-array name="positions">

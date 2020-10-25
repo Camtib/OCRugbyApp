@@ -11,13 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".teams.AdminPickTeamList"></activity>
+        <activity android:name=".results.SetResult"></activity>
+        <activity android:name=".teams.AdminPickTeamList" />
         <activity android:name=".profile.DeleteAccount" />
         <activity android:name=".profile.Settings" />
         <activity android:name=".profile.Profile" />
         <activity android:name=".profile.Register" />
         <activity android:name=".fixtures.Fixtures" />
-        <activity android:name=".leagues.Leagues" />
+        <activity android:name=".results.Results" />
         <activity android:name=".members.Members" />
         <activity android:name=".members.MembersProfile" />
         <activity android:name=".teams.Teams" />

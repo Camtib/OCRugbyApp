@@ -9,14 +9,12 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.SectionsPagerAdapter;
 import com.example.ocrugbyapp.fixtures.Fixtures;
 import com.example.ocrugbyapp.home.Home;
-import com.example.ocrugbyapp.leagues.Leagues;
+import com.example.ocrugbyapp.results.Results;
 import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Profile;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -75,8 +73,8 @@ public class Teams extends AppCompatActivity {
                     case R.id.teams:
                         break;
 
-                    case R.id.leagues:
-                        Intent intent3 = new Intent(Teams.this, Leagues.class);
+                    case R.id.results:
+                        Intent intent3 = new Intent(Teams.this, Results.class);
                         intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         startActivity(intent3);
                         break;

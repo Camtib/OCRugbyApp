@@ -45,7 +45,7 @@ public class SecondTeam extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_seconds_team, container, false);
+        View view =  inflater.inflate(R.layout.fragment_team, container, false);
 
         no1playerName = view.findViewById(R.id.no1playerName);
         no2playerName = view.findViewById(R.id.no2playerName);
@@ -63,7 +63,7 @@ public class SecondTeam extends Fragment {
         no14playerName = view.findViewById(R.id.no14playerName);
         no15playerName = view.findViewById(R.id.no15playerName);
 
-        sub1name = view.findViewById(R.id.player16Name);
+        sub1name = view.findViewById(R.id.sub1name);
         sub2name = view.findViewById(R.id.player17Name);
         sub3name = view.findViewById(R.id.player18Name);
         sub4name = view.findViewById(R.id.player19Name);
@@ -201,7 +201,7 @@ public class SecondTeam extends Fragment {
     }
 
     private void getSelectedPlayer(TextView textView, String field, String positionName) {
-        DocumentReference documentReference1 = mStore.collection("teams").document("FirstsTeam");
+        DocumentReference documentReference1 = mStore.collection("teams").document("SecondTeam");
         documentReference1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -226,7 +226,7 @@ public class SecondTeam extends Fragment {
     }
 
     private void getSelectedPlayerAdmin(TextView textView, String field, String positionName) {
-        DocumentReference documentReference1 = mStore.collection("teams").document("FirstsTeam");
+        DocumentReference documentReference1 = mStore.collection("teams").document("SecondTeam");
         documentReference1.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
@@ -257,7 +257,7 @@ public class SecondTeam extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AdminPickTeamList.class);
                 intent.putExtra("Position", position);
-                intent.putExtra("Team", "FirstsTeam");
+                intent.putExtra("Team", "SecondTeam");
                 startActivity(intent);
             }
         });
