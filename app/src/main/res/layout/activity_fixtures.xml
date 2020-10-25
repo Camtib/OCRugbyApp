@@ -64,5 +64,5 @@
         app:layout_constraintStart_toEndOf="@+id/AppTitle"
         app:layout_constraintTop_toTopOf="@+id/toolbar"
         android:contentDescription="@string/profileBtn"/>
-    
+
 </androidx.constraintlayout.widget.ConstraintLayout>

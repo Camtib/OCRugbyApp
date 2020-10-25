@@ -9,18 +9,15 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.ocrugbyapp.R;
-import com.example.ocrugbyapp.SectionsPagerAdapter;
 import com.example.ocrugbyapp.fixtures.Fixtures;
 import com.example.ocrugbyapp.home.Home;
 import com.example.ocrugbyapp.members.Members;
 import com.example.ocrugbyapp.profile.Login;
 import com.example.ocrugbyapp.profile.Profile;
 import com.example.ocrugbyapp.teams.Teams;
-import com.example.ocrugbyapp.teams.TeamsPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
@@ -36,7 +33,7 @@ public class Results extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
-    private String[] titles = new String[]{"1st XV", "2nd XV", "B XV", "Women's XV"};
+    private String[] titles = new String[]{"1st XV", "2nd XV", "B XV"};
 
     private static final String TAG = "Leagues";
 
@@ -121,6 +118,5 @@ public class Results extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tabs);
 
         new TabLayoutMediator(tabLayout, mViewPager, (tab, position) -> tab.setText(titles[position])).attach();
-
     }
 }
