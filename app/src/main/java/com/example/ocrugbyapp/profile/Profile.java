@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class Profile extends AppCompatActivity {
     String userID;
     ImageView profilePic, homeBtn;
     StorageReference mStorageRef;
+    ProgressBar progressBar;
 
     @Override
     protected void onStart() {
@@ -70,6 +72,7 @@ public class Profile extends AppCompatActivity {
         thirdPosition = findViewById(R.id.thirdPosition);
         profilePic = findViewById(R.id.profilePic);
         homeBtn = findViewById(R.id.homeBtn);
+        progressBar = findViewById(R.id.progressBar);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
@@ -147,6 +150,7 @@ public class Profile extends AppCompatActivity {
                     preferred_position.setText(documentSnapshot.getString("PreferredPosition"));
                     secondPosition.setText(documentSnapshot.getString("SecondPosition"));
                     thirdPosition.setText(documentSnapshot.getString("ThirdPosition"));
+                    progressBar.setVisibility(View.GONE);
                 }else {
                     Log.d(TAG, "document does not exist");
                 }
