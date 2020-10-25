@@ -10,13 +10,24 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
-        android:layout_height="220dp"
+        android:layout_height="240dp"
+        android:padding="5dp"
         android:background="@drawable/dark_blue_background"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilePic"
@@ -37,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Profile Picture"
+        android:padding="5dp"
         android:textSize="14sp"
         android:textColor="@android:color/holo_orange_light"
         app:layout_constraintTop_toBottomOf="@id/profilePic"

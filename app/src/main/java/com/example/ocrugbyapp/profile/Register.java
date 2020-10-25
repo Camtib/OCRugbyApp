@@ -44,7 +44,6 @@ public class Register extends AppCompatActivity {
     FirebaseFirestore mStore;
     StorageReference mStorageRef;
     String userID;
-    Uri genericPic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,9 +181,6 @@ public class Register extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
 
         loginBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
