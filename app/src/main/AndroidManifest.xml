@@ -11,24 +11,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".results.SetResult" />
-        <activity android:name=".teams.AdminPickTeamList" />
-        <activity android:name=".profile.DeleteAccount" />
-        <activity android:name=".profile.Settings" />
-        <activity android:name=".profile.Profile" />
-        <activity android:name=".profile.Register" />
-        <activity android:name=".fixtures.Fixtures" >
+        <activity android:screenOrientation="portrait" android:name=".results.SetResult" />
+        <activity android:screenOrientation="portrait" android:name=".teams.AdminPickTeamList" />
+        <activity android:screenOrientation="portrait" android:name=".profile.DeleteAccount" />
+        <activity android:screenOrientation="portrait" android:name=".profile.Settings" />
+        <activity android:screenOrientation="portrait" android:name=".profile.Profile" />
+        <activity android:screenOrientation="portrait" android:name=".profile.Register" />
+        <activity android:screenOrientation="portrait" android:name=".fixtures.Fixtures" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".results.Results" />
-        <activity android:name=".members.Members" />
-        <activity android:name=".members.MembersProfile" />
-        <activity android:name=".teams.Teams" />
-        <activity android:name=".profile.Login" />
+        <activity android:screenOrientation="portrait" android:name=".results.Results" />
+        <activity android:screenOrientation="portrait" android:name=".members.Members" />
+        <activity android:screenOrientation="portrait" android:name=".members.MembersProfile" />
+        <activity android:screenOrientation="portrait" android:name=".teams.Teams" />
+        <activity android:screenOrientation="portrait" android:name=".profile.Login" />
     </application>
 
 </manifest>
