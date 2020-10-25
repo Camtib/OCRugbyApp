@@ -132,7 +132,7 @@ public class Fixtures extends AppCompatActivity {
         });
 
         mRecyclerView = findViewById(R.id.recyclerViewMensFixtures);
-        
+
         mStore = FirebaseFirestore.getInstance();
 
         mStore.collection("ocrfcFixtures").orderBy("fixtureNum").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -284,9 +284,7 @@ public class Fixtures extends AppCompatActivity {
                     mRecyclerView.setLayoutManager(new LinearLayoutManager(Fixtures.this));
                     mRecyclerView.setAdapter(mensFixturesListAdapter);
                 }
-
             }
         });
-
     }
 }
