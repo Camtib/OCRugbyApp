@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class Members extends AppCompatActivity {
     Query searchQuery;
     MembersListAdapter adapter;
     List<MembersCard> members;
+    ProgressBar progressBar;
 
     @Override
     public void onStart() {
@@ -90,6 +92,7 @@ public class Members extends AppCompatActivity {
         searchQuery = mStore.collection("users").orderBy("Name");
         members = new ArrayList<>();
         adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
+        progressBar = findViewById(R.id.progressBar);
 
         if (search.getText().toString().isEmpty()) {
             showAdapter(searchQuery);
@@ -214,6 +217,7 @@ public class Members extends AppCompatActivity {
 
                     adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
                     membersList.setAdapter(adapter);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
