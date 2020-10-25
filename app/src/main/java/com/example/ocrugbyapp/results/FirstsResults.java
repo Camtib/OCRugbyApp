@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,6 +29,8 @@ public class FirstsResults extends Fragment {
     RecyclerView recyclerView;
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
+
+    ProgressBar progressBar;
 
     ResultsListAdapter resultsListAdapter;
     TextView noFixtures;
@@ -97,6 +100,7 @@ public class FirstsResults extends Fragment {
                     resultsListAdapter = new ResultsListAdapter(getContext(), result);
                     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                     recyclerView.setAdapter(resultsListAdapter);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -110,6 +114,8 @@ public class FirstsResults extends Fragment {
 
         recyclerView = view.findViewById(R.id.resultsList);
         noFixtures = view.findViewById(R.id.noFixturesTV);
+
+        progressBar = view.findViewById(R.id.progressBar);
 
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
@@ -179,6 +185,7 @@ public class FirstsResults extends Fragment {
                     resultsListAdapter = new ResultsListAdapter(view.getContext(), result);
                     recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
                     recyclerView.setAdapter(resultsListAdapter);
+                    progressBar.setVisibility(View.GONE);
                 }
             }
         });
