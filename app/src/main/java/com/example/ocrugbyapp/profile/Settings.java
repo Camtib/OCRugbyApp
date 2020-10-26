@@ -207,9 +207,9 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             changeProfileBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (name.getText().toString().isEmpty() || nickname.getText().toString().isEmpty() || email.getText().toString().isEmpty()
+                    if (name.getText().toString().isEmpty() || email.getText().toString().isEmpty()
                             || mobile_number.getText().toString().isEmpty()) {
-                        Toast.makeText(Settings.this, "One or more fields are empty", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Settings.this, "One or more required fields are empty", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
