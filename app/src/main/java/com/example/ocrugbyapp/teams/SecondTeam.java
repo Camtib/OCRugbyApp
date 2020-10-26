@@ -117,10 +117,10 @@ public class SecondTeam extends Fragment {
                 if (documentSnapshot.get("Admin").equals(false)) {
 
                     confirmTeamBtn.setClickable(false);
-                    confirmTeamBtn.setText(getString(R.string.firstXVStarters));
+                    confirmTeamBtn.setText(getString(R.string.secondXVStarters));
 
                     confirmSubsBtn.setClickable(false);
-                    confirmSubsBtn.setText(getString(R.string.firstXVFinishers));
+                    confirmSubsBtn.setText(getString(R.string.secondXVFinishers));
 
                     getSelectedPlayer(no1playerName,"1", "Loosehead Prop");
                     getSelectedPlayer(no2playerName, "2", "Hooker");
