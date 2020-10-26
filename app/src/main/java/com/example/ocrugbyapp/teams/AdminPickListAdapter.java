@@ -1,6 +1,7 @@
 package com.example.ocrugbyapp.teams;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,6 +89,8 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(mContext, "Player removed", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(mContext, Teams.class);
+                                    mContext.startActivity(intent);
                                     ((AdminPickTeamList)mContext).finish();
                                 }
                             });
@@ -101,6 +104,8 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(mContext, "Player added", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(mContext, Teams.class);
+                                    mContext.startActivity(intent);
                                     ((AdminPickTeamList)mContext).finish();
                                 }
                             });
