@@ -291,33 +291,35 @@ public class MensFixturesListAdapter extends RecyclerView.Adapter<MensFixturesLi
 
             mAuth = FirebaseAuth.getInstance();
             mStore = FirebaseFirestore.getInstance();
-            user = FirebaseAuth.getInstance().getCurrentUser();
-            userID = user.getUid();
+            if (mAuth.getCurrentUser() != null) {
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                userID = user.getUid();
 
-            DocumentReference documentReference = mStore.collection("users").document(userID);
+                DocumentReference documentReference = mStore.collection("users").document(userID);
 
-            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                @Override
-                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                    if (documentSnapshot.get("Available").equals(true)) {
-                        checkBox.setChecked(true);
-                    }else {
-                        checkBox.setChecked(false);
+                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                        if (documentSnapshot.get("Available").equals(true)) {
+                            checkBox.setChecked(true);
+                        }else {
+                            checkBox.setChecked(false);
+                        }
                     }
-                }
-            });
+                });
 
-            checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-                    if (isChecked) {
-                        documentReference.update("Available", true);
-                    } else {
-                        documentReference.update("Available", false);
+                        if (isChecked) {
+                            documentReference.update("Available", true);
+                        } else {
+                            documentReference.update("Available", false);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 }

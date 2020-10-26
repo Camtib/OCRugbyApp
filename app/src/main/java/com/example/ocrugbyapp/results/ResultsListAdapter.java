@@ -60,27 +60,34 @@ public class ResultsListAdapter extends RecyclerView.Adapter<ResultsListAdapter.
         holder.homeScore.setText(resultsCard.getHomeScore());
         holder.awayScore.setText(resultsCard.getAwayScore());
 
-        DocumentReference documentReference = mStore.collection("users").document(userID);
+        mAuth = FirebaseAuth.getInstance();
+        mStore = FirebaseFirestore.getInstance();
 
-        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (documentSnapshot.get("Admin").equals(true)) {
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(mContext, SetResult.class);
-                            intent.putExtra("Date", resultDate);
-                            intent.putExtra("Team", title);
-                            holder.itemView.getContext().startActivity(intent);
-                        }
-                    });
-                }else {
-                    holder.itemView.setClickable(false);
+        if (mAuth.getCurrentUser() != null) {
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            userID = user.getUid();
+
+            DocumentReference documentReference = mStore.collection("users").document(userID);
+
+            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if (documentSnapshot.get("Admin").equals(true)) {
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(mContext, SetResult.class);
+                                intent.putExtra("Date", resultDate);
+                                intent.putExtra("Team", title);
+                                holder.itemView.getContext().startActivity(intent);
+                            }
+                        });
+                    }else {
+                        holder.itemView.setClickable(false);
+                    }
                 }
-            }
-        });
-
+            });
+        }
     }
 
     @Override
@@ -100,11 +107,6 @@ public class ResultsListAdapter extends RecyclerView.Adapter<ResultsListAdapter.
             awayTeam = itemView.findViewById(R.id.awayTeamTV);
             homeScore = itemView.findViewById(R.id.homeScoreTV);
             awayScore = itemView.findViewById(R.id.awayScoreTV);
-
-            mAuth = FirebaseAuth.getInstance();
-            mStore = FirebaseFirestore.getInstance();
-            user = FirebaseAuth.getInstance().getCurrentUser();
-            userID = user.getUid();
         }
     }
 }

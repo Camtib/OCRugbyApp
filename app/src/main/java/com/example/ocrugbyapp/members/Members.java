@@ -89,101 +89,107 @@ public class Members extends AppCompatActivity {
         adapter = new MembersListAdapter(Members.this, R.layout.listview_members, members);
         progressBar = findViewById(R.id.progressBar);
 
-        if (search.getText().toString().isEmpty()) {
-            showAdapter(searchQuery);
-        }
-
-        search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-                if (charSequence.toString().length() == 0) {
-                    searchQuery = mStore.collection("users").orderBy("Name");
-                } // This is used as if user erases the characters in the search field.
-                else {
-                    searchQuery = mStore.collection("users").orderBy("Name").startAt(charSequence.toString().trim()).endAt(charSequence.toString().trim() + "\uf8ff"); // name - the field for which you want to make search
-                }
+        if (user != null) {
+            if (search.getText().toString().isEmpty()) {
                 showAdapter(searchQuery);
-                adapter.notifyDataSetChanged();
             }
-            @Override
-            public void afterTextChanged(Editable charSequence) {
 
-            }
-        });
-
-        search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (!hasFocus) {
-                    hideKeyboard(v);
-                }
-            }
-        });
-
-
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem menuItem = menu.getItem(3);
-        menuItem.setChecked(true);
-
-        ImageView profileBtn = (ImageView) findViewById(R.id.btnProfile);
-
-        //allowing items in nav bar to be clicked and change activity
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-
-                    case R.id.fixtures:
-                        Intent intent0 = new Intent(Members.this, Fixtures.class);
-                        intent0.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent0);
-                        break;
-
-                    case R.id.teams:
-                        Intent intent2 = new Intent(Members.this, Teams.class);
-                        intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent2);
-                        break;
-
-                    case R.id.results:
-                        Intent intent3 = new Intent(Members.this, Results.class);
-                        intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent3);
-                        break;
-
-                    case R.id.members:
-                        break;
-
+            search.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
                 }
 
-                return false;
-            }
-        });
+                @Override
+                public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                    if (charSequence.toString().length() == 0) {
+                        searchQuery = mStore.collection("users").orderBy("Name");
+                    } // This is used as if user erases the characters in the search field.
+                    else {
+                        searchQuery = mStore.collection("users").orderBy("Name").startAt(charSequence.toString().trim()).endAt(charSequence.toString().trim() + "\uf8ff"); // name - the field for which you want to make search
+                    }
+                    showAdapter(searchQuery);
+                    adapter.notifyDataSetChanged();
+                }
+                @Override
+                public void afterTextChanged(Editable charSequence) {
 
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Profile.class));
-            }
-        });
+                }
+            });
 
-        membersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            search.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        hideKeyboard(v);
+                    }
+                }
+            });
 
-                TextView fname = view.findViewById(R.id.textViewName);
-                String user_name = fname.getText().toString();
 
-                Intent intent = new Intent(Members.this, MembersProfile.class);
-                intent.putExtra("Member Name", user_name);
-                startActivity(intent);
-            }
-        });
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
+            Menu menu = bottomNavigationView.getMenu();
+            MenuItem menuItem = menu.getItem(3);
+            menuItem.setChecked(true);
+
+            ImageView profileBtn = (ImageView) findViewById(R.id.btnProfile);
+
+            //allowing items in nav bar to be clicked and change activity
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+
+                        case R.id.fixtures:
+                            Intent intent0 = new Intent(Members.this, Fixtures.class);
+                            intent0.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent0);
+                            break;
+
+                        case R.id.teams:
+                            Intent intent2 = new Intent(Members.this, Teams.class);
+                            intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent2);
+                            break;
+
+                        case R.id.results:
+                            Intent intent3 = new Intent(Members.this, Results.class);
+                            intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent3);
+                            break;
+
+                        case R.id.members:
+                            break;
+
+                    }
+
+                    return false;
+                }
+            });
+
+            profileBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), Profile.class));
+                }
+            });
+
+            membersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    TextView fname = view.findViewById(R.id.textViewName);
+                    String user_name = fname.getText().toString();
+
+                    Intent intent = new Intent(Members.this, MembersProfile.class);
+                    intent.putExtra("Member Name", user_name);
+                    startActivity(intent);
+                }
+            });
+        }else {
+            Intent intent = new Intent(Members.this, Login.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     private void showAdapter(Query q1) {

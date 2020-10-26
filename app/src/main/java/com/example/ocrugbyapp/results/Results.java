@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -25,16 +23,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Results extends AppCompatActivity {
 
-    private ResultsPagerAdapter resultsPagerAdapter;
-
-    private ViewPager2 mViewPager;
-
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
 
     private String[] titles = new String[]{"1st XV", "2nd XV", "B XV"};
-
-    private static final String TAG = "Leagues";
 
     @Override
     public void onStart() {
@@ -42,7 +33,7 @@ public class Results extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
-        currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Intent intent = new Intent(Results.this, Login.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -56,17 +47,18 @@ public class Results extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(2);
         menuItem.setChecked(true);
 
-        ImageView profileBtn = findViewById(R.id.btnProfile);
+        mAuth = FirebaseAuth.getInstance();
 
-        //allowing items in nav bar to be clicked and change activity
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        if (mAuth.getCurrentUser() != null) {
+            ImageView profileBtn = findViewById(R.id.btnProfile);
+
+            //allowing items in nav bar to be clicked and change activity
+            bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 switch (item.getItemId()) {
 
                     case R.id.fixtures:
@@ -93,23 +85,21 @@ public class Results extends AppCompatActivity {
                 }
 
                 return false;
-            }
-        });
+            });
 
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Profile.class));
-            }
-        });
+            profileBtn.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), Profile.class)));
 
-        resultsPagerAdapter = new ResultsPagerAdapter(this);
+            ResultsPagerAdapter resultsPagerAdapter = new ResultsPagerAdapter(this);
 
-        mViewPager = findViewById(R.id.container);
-        mViewPager.setAdapter(resultsPagerAdapter);
+            ViewPager2 mViewPager = findViewById(R.id.container);
+            mViewPager.setAdapter(resultsPagerAdapter);
 
-        TabLayout tabLayout = findViewById(R.id.tabs);
+            TabLayout tabLayout = findViewById(R.id.tabs);
 
-        new TabLayoutMediator(tabLayout, mViewPager, (tab, position) -> tab.setText(titles[position])).attach();
+            new TabLayoutMediator(tabLayout, mViewPager, (tab, position) -> tab.setText(titles[position])).attach();
+        }else {
+            startActivity(new Intent(Results.this, Login.class));
+            finish();
+        }
     }
 }

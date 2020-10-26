@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,7 +36,6 @@ import javax.annotation.Nullable;
 
 public class Profile extends AppCompatActivity {
 
-    private static final String TAG = "Profile";
     TextView name, nickname, email, mobile_number, preferred_position, secondPosition, thirdPosition;
     FirebaseAuth mAuth;
     FirebaseFirestore mStore;
@@ -71,94 +69,96 @@ public class Profile extends AppCompatActivity {
         profilePic = findViewById(R.id.profilePic);
         progressBar = findViewById(R.id.progressBar);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
 
         mAuth = FirebaseAuth.getInstance();
-
         mStore = FirebaseFirestore.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
 
-        StorageReference profileRef = mStorageRef.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                Picasso.get().load(uri).into(profilePic);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "storage failed");
-            }
-        });
-
-        //allowing items in nav bar to be clicked and change activity
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-
-                    case R.id.backArrow:
-                        Intent intent = new Intent(Profile.this, Fixtures.class);
-                        startActivity(intent);
-                        finish();
-                        break;
-
-                    case R.id.profile:
-                        break;
-
-                    case R.id.settingsBtn:
-                        Intent intent2 = new Intent(Profile.this, Settings.class);
-                        intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        intent2.putExtra("Name", name.getText().toString());
-                        intent2.putExtra("Nickname", nickname.getText().toString());
-                        intent2.putExtra("Email", email.getText().toString());
-                        intent2.putExtra("Mobile_Number", mobile_number.getText().toString());
-                        intent2.putExtra("Preferred Position", preferred_position.getText().toString());
-                        intent2.putExtra("Second Position", secondPosition.getText().toString());
-                        intent2.putExtra("Third Position", thirdPosition.getText().toString());
-                        startActivity(intent2);
-                        break;
+        if (mAuth.getCurrentUser() != null) {
+            StorageReference profileRef = mStorageRef.child("users/"+mAuth.getCurrentUser().getUid()+"/profile.jpg");
+            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Picasso.get().load(uri).into(profilePic);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
                 }
+            });
 
-                return false;
-            }
-        });
+            //allowing items in nav bar to be clicked and change activity
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
 
-        userID = mAuth.getCurrentUser().getUid();
+                        case R.id.backArrow:
+                            Intent intent = new Intent(Profile.this, Fixtures.class);
+                            startActivity(intent);
+                            finish();
+                            break;
 
-        //user info storage
-        DocumentReference documentReference = mStore.collection("users").document(userID);
-        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (documentSnapshot.exists()) {
-                    name.setText(documentSnapshot.getString("Name"));
-                    nickname.setText(documentSnapshot.getString("Nickname"));
-                    email.setText(documentSnapshot.getString("Email"));
-                    mobile_number.setText(documentSnapshot.getString("Mobile_Number"));
-                    preferred_position.setText(documentSnapshot.getString("PreferredPosition"));
-                    secondPosition.setText(documentSnapshot.getString("SecondPosition"));
-                    thirdPosition.setText(documentSnapshot.getString("ThirdPosition"));
-                    progressBar.setVisibility(View.GONE);
-                }else {
-                    Log.d(TAG, "document does not exist");
+                        case R.id.profile:
+                            break;
+
+                        case R.id.settingsBtn:
+                            Intent intent2 = new Intent(Profile.this, Settings.class);
+                            intent2.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            intent2.putExtra("Name", name.getText().toString());
+                            intent2.putExtra("Nickname", nickname.getText().toString());
+                            intent2.putExtra("Email", email.getText().toString());
+                            intent2.putExtra("Mobile_Number", mobile_number.getText().toString());
+                            intent2.putExtra("Preferred Position", preferred_position.getText().toString());
+                            intent2.putExtra("Second Position", secondPosition.getText().toString());
+                            intent2.putExtra("Third Position", thirdPosition.getText().toString());
+                            startActivity(intent2);
+                            break;
+
+                    }
+
+                    return false;
                 }
-            }
-        });
+            });
 
-        profilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            userID = mAuth.getCurrentUser().getUid();
 
-                Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(openGalleryIntent, 1000);
-            }
-        });
+            //user info storage
+            DocumentReference documentReference = mStore.collection("users").document(userID);
+            documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if (documentSnapshot.exists()) {
+                        name.setText(documentSnapshot.getString("Name"));
+                        nickname.setText(documentSnapshot.getString("Nickname"));
+                        email.setText(documentSnapshot.getString("Email"));
+                        mobile_number.setText(documentSnapshot.getString("Mobile_Number"));
+                        preferred_position.setText(documentSnapshot.getString("PreferredPosition"));
+                        secondPosition.setText(documentSnapshot.getString("SecondPosition"));
+                        thirdPosition.setText(documentSnapshot.getString("ThirdPosition"));
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }
+            });
+
+            profilePic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(openGalleryIntent, 1000);
+                }
+            });
+        }else {
+            startActivity(new Intent(Profile.this, Login.class));
+            finish();
+        }
     }
 
     @Override

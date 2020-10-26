@@ -2,7 +2,6 @@ package com.example.ocrugbyapp.members;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +24,6 @@ import java.util.List;
 
 public class MembersListAdapter extends ArrayAdapter<MembersCard> {
 
-    private static final String TAG = "MemberslistAdapter";
     private Context mContext;
     private int mResource;
     FirebaseAuth mAuth;
@@ -52,7 +50,6 @@ public class MembersListAdapter extends ArrayAdapter<MembersCard> {
         String nickname = getItem(position).getNickname();
         String userID = getItem(position).getUserID();
 
-
         //create view result to show animation
         final View result;
 
@@ -68,7 +65,6 @@ public class MembersListAdapter extends ArrayAdapter<MembersCard> {
             holder.nickname = (TextView) convertView.findViewById(R.id.textViewNickname);
             holder.profilePic = (ImageView) convertView.findViewById(R.id.profilePics);
 
-
             result = convertView;
             convertView.setTag(holder);
         }
@@ -77,28 +73,27 @@ public class MembersListAdapter extends ArrayAdapter<MembersCard> {
             result = convertView;
         }
 
-
-
         holder.name.setText(name);
         holder.nickname.setText(nickname);
 
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        StorageReference profileRef = mStorageRef.child("users/"+userID+"/profile.jpg");
-        profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                profilePic = uri;
-                Picasso.get().load(profilePic).into(holder.profilePic);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "storage failed");
-            }
-        });
-        
+        if (userID != null) {
+            StorageReference profileRef = mStorageRef.child("users/"+userID+"/profile.jpg");
+            profileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    profilePic = uri;
+                    Picasso.get().load(profilePic).into(holder.profilePic);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                }
+            });
+        }
+
         return convertView;
 
     }

@@ -25,16 +25,9 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Teams extends AppCompatActivity {
 
-    private static final String TAG = "Teams";
-    private TeamsPagerAdapter teamsPagerAdapter;
-
-    private ViewPager2 mViewPager;
-
     private String[] titles = new String[]{"1st XV", "2nd XV", "B XV", "Women's XV"};
 
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseUser currentUser;
 
     @Override
     public void onStart() {
@@ -42,7 +35,7 @@ public class Teams extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         // Check if user is signed in (non-null) and update UI accordingly.
-        currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser == null) {
             Intent intent = new Intent(Teams.this, Login.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -56,60 +49,67 @@ public class Teams extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teams);
 
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavBar);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavBar);
         Menu menu = bottomNavigationView.getMenu();
         MenuItem menuItem = menu.getItem(1);
         menuItem.setChecked(true);
-        ImageView profileBtn = (ImageView) findViewById(R.id.btnProfile);
+        ImageView profileBtn = findViewById(R.id.btnProfile);
 
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Profile.class));
-            }
-        });
+        mAuth = FirebaseAuth.getInstance();
 
-        //allowing items in nav bar to be clicked and change activity
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-
-                    case R.id.fixtures:
-                        Intent intent1 = new Intent(Teams.this, Fixtures.class);
-                        intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent1);
-                        break;
-
-                    case R.id.teams:
-                        break;
-
-                    case R.id.results:
-                        Intent intent3 = new Intent(Teams.this, Results.class);
-                        intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent3);
-                        break;
-
-                    case R.id.members:
-                        Intent intent4 = new Intent(Teams.this, Members.class);
-                        intent4.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent4);
-                        break;
-
+        if (mAuth.getCurrentUser() != null) {
+            profileBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getApplicationContext(), Profile.class));
                 }
+            });
 
-                return false;
-            }
-        });
+            //allowing items in nav bar to be clicked and change activity
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
 
-        //fragments and tabLayout
-        teamsPagerAdapter = new TeamsPagerAdapter(this);
+                        case R.id.fixtures:
+                            Intent intent1 = new Intent(Teams.this, Fixtures.class);
+                            intent1.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent1);
+                            break;
 
-        mViewPager = (ViewPager2) findViewById(R.id.container);
-        mViewPager.setAdapter(teamsPagerAdapter);
+                        case R.id.teams:
+                            break;
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+                        case R.id.results:
+                            Intent intent3 = new Intent(Teams.this, Results.class);
+                            intent3.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent3);
+                            break;
 
-        new TabLayoutMediator(tabLayout, mViewPager,(tab, position) -> tab.setText(titles[position])).attach();
+                        case R.id.members:
+                            Intent intent4 = new Intent(Teams.this, Members.class);
+                            intent4.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                            startActivity(intent4);
+                            break;
+
+                    }
+
+                    return false;
+                }
+            });
+
+            //fragments and tabLayout
+            TeamsPagerAdapter teamsPagerAdapter = new TeamsPagerAdapter(this);
+
+            ViewPager2 mViewPager = (ViewPager2) findViewById(R.id.container);
+            mViewPager.setAdapter(teamsPagerAdapter);
+
+            TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+
+            new TabLayoutMediator(tabLayout, mViewPager,(tab, position) -> tab.setText(titles[position])).attach();
+        }else {
+            startActivity(new Intent(Teams.this, Login.class));
+            finish();
+        }
     }
 }

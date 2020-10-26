@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.ocrugbyapp.R;
+import com.example.ocrugbyapp.profile.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,11 +44,16 @@ public class AdminPickTeamList extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
 
-        searchQuery = mStore.collection("users").whereEqualTo("Available", true);
-        showAdapter(searchQuery, team, position);
+        if (mAuth.getCurrentUser() != null) {
+            searchQuery = mStore.collection("users").whereEqualTo("Available", true);
+            showAdapter(searchQuery, team, position);
 
-
+        }else {
+            startActivity(new Intent(AdminPickTeamList.this, Login.class));
+            finish();
+        }
     }
+
     private void showAdapter(Query q1, String team, String position) {
         q1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

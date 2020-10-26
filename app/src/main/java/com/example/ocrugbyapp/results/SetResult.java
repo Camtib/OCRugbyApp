@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ocrugbyapp.R;
+import com.example.ocrugbyapp.profile.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -53,93 +54,98 @@ public class SetResult extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mStore = FirebaseFirestore.getInstance();
 
-        Intent data = getIntent();
-        resultDate = data.getStringExtra("Date");
-        team = data.getStringExtra("Team");
+        if (mAuth.getCurrentUser() != null) {
+            Intent data = getIntent();
+            resultDate = data.getStringExtra("Date");
+            team = data.getStringExtra("Team");
 
-        scoreTV.setText(team);
-        date.setText(resultDate);
+            scoreTV.setText(team);
+            date.setText(resultDate);
 
-        mStore.collection("ocrfcFixtures").whereEqualTo("date", resultDate)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                String doc = document.getId();
+            mStore.collection("ocrfcFixtures").whereEqualTo("date", resultDate)
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    String doc = document.getId();
 
-                                DocumentReference documentReference = mStore.collection("ocrfcFixtures").document(doc);
+                                    DocumentReference documentReference = mStore.collection("ocrfcFixtures").document(doc);
 
-                                documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
-                                        if (team.equals("1st XV Result")) {
-                                            String opponent = value.get("firstsOpponent").toString();
-                                            opposition.setText(opponent);
-                                        }else if (team.equals("2nd XV Result")) {
-                                            String opponent = value.get("secondsOpponent").toString();
-                                            opposition.setText(opponent);
-                                        }else if (team.equals("B XV Result")) {
-                                            String opponent = value.get("bsOpponent").toString();
-                                            opposition.setText(opponent);
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    }
-                });
-
-        confirmBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mStore.collection("ocrfcFixtures").whereEqualTo("date", resultDate)
-                        .get()
-                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                if (task.isSuccessful()) {
-                                    for (QueryDocumentSnapshot document : task.getResult()) {
-                                        String doc = document.getId();
-
-                                        DocumentReference documentReference = mStore.collection("ocrfcFixtures").document(doc);
-
-                                        ocScored = ocScore.getText().toString();
-                                        oppScored = oppScore.getText().toString();
-
-                                        Map<String, Object> edited = new HashMap<>();
-
-                                        if (team.equals("1st XV Result")) {
-                                            edited.put("firstsScore", ocScored);
-                                            edited.put("firstsOppScore", oppScored);
-                                        }else if (team.equals("2nd XV Result")) {
-                                            edited.put("secondsScore", ocScored);
-                                            edited.put("secondsOppScore", oppScored);
-                                        }else if (team.equals("B XV Result")) {
-                                            edited.put("bsScore", ocScored);
-                                            edited.put("bsOppScore", oppScored);
-                                        }
-
-                                        documentReference.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Toast.makeText(SetResult.this, "Score successfully updated", Toast.LENGTH_SHORT).show();
-                                                finish();
+                                    documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                                            if (team.equals("1st XV Result")) {
+                                                String opponent = value.get("firstsOpponent").toString();
+                                                opposition.setText(opponent);
+                                            }else if (team.equals("2nd XV Result")) {
+                                                String opponent = value.get("secondsOpponent").toString();
+                                                opposition.setText(opponent);
+                                            }else if (team.equals("B XV Result")) {
+                                                String opponent = value.get("bsOpponent").toString();
+                                                opposition.setText(opponent);
                                             }
-                                        });
-                                    }
+                                        }
+                                    });
                                 }
                             }
-                        });
-            }
-        });
+                        }
+                    });
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+            confirmBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mStore.collection("ocrfcFixtures").whereEqualTo("date", resultDate)
+                            .get()
+                            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        for (QueryDocumentSnapshot document : task.getResult()) {
+                                            String doc = document.getId();
+
+                                            DocumentReference documentReference = mStore.collection("ocrfcFixtures").document(doc);
+
+                                            ocScored = ocScore.getText().toString();
+                                            oppScored = oppScore.getText().toString();
+
+                                            Map<String, Object> edited = new HashMap<>();
+
+                                            if (team.equals("1st XV Result")) {
+                                                edited.put("firstsScore", ocScored);
+                                                edited.put("firstsOppScore", oppScored);
+                                            }else if (team.equals("2nd XV Result")) {
+                                                edited.put("secondsScore", ocScored);
+                                                edited.put("secondsOppScore", oppScored);
+                                            }else if (team.equals("B XV Result")) {
+                                                edited.put("bsScore", ocScored);
+                                                edited.put("bsOppScore", oppScored);
+                                            }
+
+                                            documentReference.update(edited).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(SetResult.this, "Score successfully updated", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                    }
+                                }
+                            });
+                }
+            });
+
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }else {
+            startActivity(new Intent(SetResult.this, Login.class));
+            finish();
+        }
     }
 }

@@ -56,79 +56,83 @@ public class AdminPickListAdapter extends RecyclerView.Adapter<AdminPickListAdap
     @Override
     public void onBindViewHolder(@NonNull AdminPickListAdapter.PlayersVH holder, int position) {
 
-        TeamPlayer player = playerList.get(position);
-        userID = player.getUserID();
-        team = player.getTeam();
-        field = player.getPosition();
-
-        mStore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        mStorageRef = FirebaseStorage.getInstance().getReference();
 
-        DocumentReference documentReference = mStore.collection("users").document(userID);
-        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-            @Override
-            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (documentSnapshot.exists()) {
-                    holder.name.setText(documentSnapshot.get("Name").toString());
-                    holder.position.setText(documentSnapshot.get("PreferredPosition").toString());
+        if (mAuth.getCurrentUser() != null) {
+            TeamPlayer player = playerList.get(position);
+            userID = player.getUserID();
+            team = player.getTeam();
+            field = player.getPosition();
+
+            mStore = FirebaseFirestore.getInstance();
+            mAuth = FirebaseAuth.getInstance();
+            mStorageRef = FirebaseStorage.getInstance().getReference();
+
+            DocumentReference documentReference = mStore.collection("users").document(userID);
+            documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+                    if (documentSnapshot.exists()) {
+                        holder.name.setText(documentSnapshot.get("Name").toString());
+                        holder.position.setText(documentSnapshot.get("PreferredPosition").toString());
+                    }
                 }
-            }
-        });
+            });
 
-        DocumentReference documentReference1 = mStore.collection("teams").document(team);
-        documentReference1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                if (documentSnapshot.get(field).toString().equals(userID)) {
-                    holder.deleteIcon.setVisibility(View.VISIBLE);
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            documentReference1.update(field, "").addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(mContext, "Player removed", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(mContext, Teams.class);
-                                    mContext.startActivity(intent);
-                                    ((AdminPickTeamList)mContext).finish();
-                                }
-                            });
-                        }
-                    });
-                }else {
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            documentReference1.update(field, userID).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(mContext, "Player added", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(mContext, Teams.class);
-                                    mContext.startActivity(intent);
-                                    ((AdminPickTeamList)mContext).finish();
-                                }
-                            });
-                        }
-                    });
+            DocumentReference documentReference1 = mStore.collection("teams").document(team);
+            documentReference1.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    if (documentSnapshot.get(field).toString().equals(userID)) {
+                        holder.deleteIcon.setVisibility(View.VISIBLE);
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                documentReference1.update(field, "").addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(mContext, "Player removed", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(mContext, Teams.class);
+                                        mContext.startActivity(intent);
+                                        ((AdminPickTeamList)mContext).finish();
+                                    }
+                                });
+                            }
+                        });
+                    }else {
+                        holder.itemView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                documentReference1.update(field, userID).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(mContext, "Player added", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(mContext, Teams.class);
+                                        mContext.startActivity(intent);
+                                        ((AdminPickTeamList)mContext).finish();
+                                    }
+                                });
+                            }
+                        });
+                    }
                 }
-            }
-        });
+            });
 
 
-        StorageReference storageReference = mStorageRef.child("users/"+userID+"/profile.jpg");
-        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                profilePic = uri;
-                Picasso.get().load(profilePic).into(holder.profileImage);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
+            StorageReference storageReference = mStorageRef.child("users/"+userID+"/profile.jpg");
+            storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    profilePic = uri;
+                    Picasso.get().load(profilePic).into(holder.profileImage);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override

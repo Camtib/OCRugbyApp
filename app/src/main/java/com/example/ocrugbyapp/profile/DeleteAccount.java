@@ -30,34 +30,39 @@ public class DeleteAccount extends AppCompatActivity {
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            private static final String TAG = "deleteAccount";
+        if (user != null) {
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                private static final String TAG = "deleteAccount";
 
-            @Override
-            public void onClick(View v) {
-                user.delete()
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Log.d(TAG, "User account deleted.");
-                                    Intent intent = new Intent(DeleteAccount.this, Login.class);
-                                    startActivity(intent);
-                                    finish();
+                @Override
+                public void onClick(View v) {
+                    user.delete()
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Log.d(TAG, "User account deleted.");
+                                        Intent intent = new Intent(DeleteAccount.this, Login.class);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
-            }
-        });
+                            });
+                }
+            });
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DeleteAccount.this, Profile.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                finish();
-            }
-        });
+            cancelBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(DeleteAccount.this, Profile.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+        }else {
+            startActivity(new Intent(DeleteAccount.this, Login.class));
+            finish();
+        }
     }
 }
